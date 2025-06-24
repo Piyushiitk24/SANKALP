@@ -48,9 +48,9 @@ const Banner = ({ hide, setHide }: BannerProps) => {
     >
       <div className="relative w-full">
         <div className="flex items-center justify-center">
-          <p className="text-sm font-normal">
+          <p className="text-sm font-normal text-gray-900">
             📢{" "}
-            <strong className="font-semibold">
+            <strong className="font-semibold text-gray-900">
               This project is in a testing phase.
             </strong>{" "}
             If you find any bugs, please{" "}
@@ -58,7 +58,7 @@ const Banner = ({ hide, setHide }: BannerProps) => {
               href="https://github.com/Piyushiitk24/SANKALP/issues/new"
               target="_blank"
               rel="noreferrer noopener"
-              className="text-green-600 transition-opacity hover:opacity-75"
+              className="text-[#a259ff] transition-opacity hover:opacity-75"
             >
               report it
             </Link>
@@ -67,7 +67,7 @@ const Banner = ({ hide, setHide }: BannerProps) => {
               href="https://coff.ee/Piyushiitk24"
               target="_blank"
               rel="noreferrer noopener"
-              className="text-green-600 transition-opacity hover:opacity-75"
+              className="text-[#a259ff] transition-opacity hover:opacity-75"
             >
               support this project
             </Link>

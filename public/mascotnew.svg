@@ -2,30 +2,33 @@
   <style>
     .body {
       fill: url(#premiumGradient);
-      stroke: #8a2be2;
-      stroke-width: 1.5;
+      stroke: #a259ff;
+      stroke-width: 2.2;
+      filter: drop-shadow(0 0 8px #a259ff33);
     }
     .neon {
-      stroke: #8a2be2;
-      stroke-width: 2;
+      stroke: #a259ff;
+      stroke-width: 2.5;
       fill: none;
+      filter: drop-shadow(0 0 6px #a259ff88);
       animation: pulse 2s infinite, shimmer 4s infinite;
     }
     .eyes {
-      fill: #e6e6fa;
-      stroke: #8a2be2;
-      stroke-width: 1;
+      fill: #fff;
+      stroke: #a259ff;
+      stroke-width: 1.2;
+      filter: drop-shadow(0 0 2px #a259ff88);
       animation: glow 3s infinite;
     }
     .beak {
       fill: #ffd700;
-      stroke: #8a2be2;
-      stroke-width: 1;
+      stroke: #a259ff;
+      stroke-width: 1.2;
     }
     @keyframes pulse {
-      0% { filter: drop-shadow(0 0 2px #8a2be2); }
-      50% { filter: drop-shadow(0 0 8px #8a2be2); }
-      100% { filter: drop-shadow(0 0 2px #8a2be2); }
+      0% { filter: drop-shadow(0 0 2px #a259ff); }
+      50% { filter: drop-shadow(0 0 12px #a259ff); }
+      100% { filter: drop-shadow(0 0 2px #a259ff); }
     }
     @keyframes shimmer {
       0% { stroke-opacity: 1; }
@@ -33,16 +36,15 @@
       100% { stroke-opacity: 1; }
     }
     @keyframes glow {
-      0% { fill: #e6e6fa; }
-      50% { fill: #ffffff; }
-      100% { fill: #e6e6fa; }
+      0% { fill: #fff; }
+      50% { fill: #e6e6fa; }
+      100% { fill: #fff; }
     }
   </style>
-  <!-- Gradient for Premium Look -->
   <defs>
     <linearGradient id="premiumGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2c2c54;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1a1a3d;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#f8f7ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e6e6fa;stop-opacity:1" />
     </linearGradient>
   </defs>
   <!-- Owl Body -->

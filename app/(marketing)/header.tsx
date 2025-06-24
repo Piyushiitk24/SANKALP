@@ -57,7 +57,11 @@ export const Header = () => {
                   afterSignInUrl="/learn"
                   afterSignUpUrl="/learn"
                 >
-                  <Button size="lg" variant="ghost">
+                  <Button
+                    size="lg"
+                    variant="ghost"
+                    className="text-[#a259ff]"
+                  >
                     Login
                   </Button>
                 </SignInButton>

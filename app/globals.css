@@ -90,8 +90,7 @@ body,
   text-shadow: var(--neon-purple-shadow);
 }
 
-/* Optional: Set background and foreground for neon theme */
 body {
-  background: linear-gradient(135deg, #2c2c54 0%, #1a1a3d 100%);
-  color: #e6e6fa;
+  background: rgb(255, 255, 255); /* very light neon purple tint */
+  color:rgb(255, 255, 255); /* fallback text color for contrast */
 }
