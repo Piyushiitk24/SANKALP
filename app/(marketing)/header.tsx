@@ -65,7 +65,7 @@ export const Header = () => {
               </SignedOut>
 
               <Link
-                href={links.sourceCode}
+                href="https://github.com/Piyushiitk24"
                 target="_blank"
                 rel="noreferrer noopener"
                 className={isSignedIn ? "pt-1.5" : "pt-3"}

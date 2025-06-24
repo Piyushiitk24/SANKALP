@@ -55,7 +55,7 @@ const Banner = ({ hide, setHide }: BannerProps) => {
             </strong>{" "}
             If you find any bugs, please{" "}
             <Link
-              href={`${links.sourceCode}/issues/new`}
+              href="https://github.com/Piyushiitk24/SANKALP/issues/new"
               target="_blank"
               rel="noreferrer noopener"
               className="text-green-600 transition-opacity hover:opacity-75"
