@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const siteConfig: Metadata = {
-  title: "Gamification_Quiz",
+  title: "SANKALP",
   description:
     "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
   keywords: [
@@ -39,12 +39,12 @@ export const siteConfig: Metadata = {
     "css",
   ] as Array<string>,
   authors: {
-    name: "Sanidhya Kumar Verma",
+    name: "Piyush Tiwari",
     url: "https://github.com/piyushiitk24",
   },
 } as const;
 
 export const links = {
-  sourceCode: "https://github.com/piyushiitk24/Gamification_Quiz",
+  sourceCode: "https://github.com/piyushiitk24/SANKALP",
   email: "piyushiitk24@gmail.com",
 }
