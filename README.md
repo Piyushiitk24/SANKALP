@@ -1,17 +1,17 @@
 <a name="readme-top"></a>
 
-# Gamification_Quiz - Interactive platform for language learning.
+# SANKALP<sup>®</sup> - Interactive platform for language learning.
 
-![Gamification_Quiz - Interactive platform for language learning.](/.github/images/img_main.png "Gamification_Quiz - Interactive platform for language learning.")
+![SANKALP<sup>®</sup> - Interactive platform for language learning.](/.github/images/img_main.png "SANKALP<sup>®</sup> - Interactive platform for language learning.")
 
 [![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24 "Ask Me Anything!")
-[![GitHub license](https://flat.badgen.net/github/license/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/blob/main/LICENSE "GitHub license")
-[![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/commits/main "Maintenance")
-[![GitHub branches](https://flat.badgen.net/github/branches/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/branches "GitHub branches")
-[![Github commits](https://flat.badgen.net/github/commits/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/commits "Github commits")
-[![GitHub issues](https://flat.badgen.net/github/issues/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/issues "GitHub issues")
-[![GitHub pull requests](https://flat.badgen.net/github/prs/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/pulls "GitHub pull requests")
-[![Vercel status](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://gamification-quiz.vercel.app/ "Vercel status")
+[![GitHub license](https://flat.badgen.net/github/license/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/blob/main/LICENSE "GitHub license")
+[![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/commits/main "Maintenance")
+[![GitHub branches](https://flat.badgen.net/github/branches/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/branches "GitHub branches")
+[![Github commits](https://flat.badgen.net/github/commits/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/commits "Github commits")
+[![GitHub issues](https://flat.badgen.net/github/issues/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/issues "GitHub issues")
+[![GitHub pull requests](https://flat.badgen.net/github/prs/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/pulls "GitHub pull requests")
+[![Vercel status](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sankalp-sigma.vercel.app/ "Vercel status")
 
 <!-- Table of Contents -->
 <details>
@@ -44,7 +44,7 @@
 Here is the folder structure of this app.
 
 ```bash
-duolingo-clone/
+sankalp/
   |- actions/
     |- challenge-progress.ts
     |- user-progress.ts
@@ -165,7 +165,7 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 CLERK_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 # neon db uri
-DATABASE_URL="postgresql://<user>:<password>@<host>:<post>/lingo?sslmode=require"
+DATABASE_URL="postgresql://<user>:<password>@<host>:<post>/sankalp?sslmode=require"
 
 # stripe api key and webhook
 STRIPE_API_SECRET_KEY=your_stripe_api_secret_key
@@ -259,7 +259,7 @@ Once the script completes, check your database to ensure that the challenges dat
 
 ## :wrench: Stats
 
-[![Stats for Gamification_Quiz](/.github/images/stats.svg "Stats for Gamification_Quiz")](https://pagespeed.web.dev/analysis?url=https://gamification-quiz.vercel.app/ "Stats for Gamification_Quiz")
+[![Stats for SANKALP](/.github/images/stats.svg "Stats for SANKALP")](https://pagespeed.web.dev/analysis?url=https://sankalp-sigma.vercel.app/ "Stats for SANKALP")
 
 ## :raised_hands: Contribute
 
@@ -267,7 +267,7 @@ You might encounter some bugs while using this app. You are more than welcome to
 
 ## :gem: Acknowledgements
 
-Useful resources and dependencies that are used in Lingo.
+Useful resources and dependencies that are used in SANKALP<sup>®</sup>.
 
 - Special Thanks to Kenney Assets: https://kenney.nl/
 - Freesound: https://freesound.org/
@@ -308,7 +308,7 @@ Useful resources and dependencies that are used in Lingo.
 ## :rocket: Follow Me
 
 [![Follow Me](https://img.shields.io/github/followers/Piyushiitk24?style=social&label=Follow&maxAge=2592000)](https://github.com/Piyushiitk24 "Follow Me")
-[![Tweet about this project](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTechnicalShubam)](https://twitter.com/intent/tweet?text=Check+out+this+amazing+app:&url=https%3A%2F%2Fgithub.com%2Fsanidhyy%2Fduolingo-clone "Tweet about this project")
+[![Tweet about this project](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTechnicalShubam)](https://twitter.com/intent/tweet?text=Check+out+this+amazing+app:&url=https%3A%2F%2Fgithub.com%2FPiyushiitk24%2FSANKALP "Tweet about this project")
 [![Subscribe to my YouTube Channel](https://img.shields.io/youtube/channel/subscribers/UCNAz_hUVBG2ZUN8TVm0bmYw)](https://www.youtube.com/@OPGAMER./?sub_confirmation=1 "Subscribe to my YouTube Channel")
 
 ## :books: Learn More
@@ -332,11 +332,11 @@ You can also give this repository a star to show more people and they can use th
 
 ## :star2: Star History
 
-<a href="https://star-history.com/#Piyushiitk24/Gamification_Quiz&Timeline">
+<a href="https://star-history.com/#Piyushiitk24/SANKALP&Timeline">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/Gamification_Quiz&type=Timeline&theme=dark" />
-  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/Gamification_Quiz&type=Timeline" />
-  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Piyushiitk24/Gamification_Quiz&type=Timeline" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/SANKALP&type=Timeline&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/SANKALP&type=Timeline" />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Piyushiitk24/SANKALP&type=Timeline" />
 </picture>
 </a>
 
