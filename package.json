@@ -1,8 +1,8 @@
 {
-  "name": "gamification-quiz",
+  "name": "sankalp",
   "version": "1.0.1",
   "author": "Piyush Tiwari",
-  "description": "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
+  "description": "Study of Advanced Novel Knowledge and Learning Practices",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -16,20 +16,20 @@
     "db:push": "npx drizzle-kit push:pg",
     "db:prod": "tsx ./scripts/prod.ts"
   },
-  "homepage": "https://github.com/Piyushiitk24/Gamification_Quiz#readme",
+  "homepage": "https://github.com/Piyushiitk24/SANKALP#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Piyushiitk24/Gamification_Quiz.git"
+    "url": "git+https://github.com/Piyushiitk24/SANKALP.git"
   },
   "bugs": {
-    "url": "https://github.com/Piyushiitk24/Gamification_Quiz/issues"
+    "url": "https://github.com/Piyushiitk24/SANKALP/issues"
   },
   "keywords": [
     "reactjs",
     "nextjs",
     "vercel",
     "react",
-    "Gamification-Quiz",
+    "SANKALP",
     "learn-language",
     "shadcn",
     "shadcn-ui",
@@ -56,7 +56,23 @@
     "typescript",
     "eslint",
     "html",
-    "css"
+    "css",
+    "duolingo",
+    "language-learning",
+    "language-app",
+    "language-quiz",
+    "language-lessons",
+    "language-progress",
+    "language-tracking",
+    "language-gamification",
+    "language-education",
+    "language-app-development",
+    "language-learning-app",
+    "language-learning-platform",
+    "language-learning-quiz",
+    "Quiz",
+    "Gamification",
+    "Online Quiz"
   ],
   "dependencies": {
     "@clerk/nextjs": "^4.31.5",
