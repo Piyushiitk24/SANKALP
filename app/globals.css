@@ -39,6 +39,10 @@ body,
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --neon-purple: 270 100% 60%;
+    --neon-purple-glow: 270 100% 60%;
+    --neon-purple-shadow: 0 0 8px hsl(270, 100%, 60%), 0 0 16px hsl(270, 100%, 70%);
   }
 
   .dark {
@@ -79,4 +83,15 @@ body,
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.text-neon-purple-glow {
+  color: hsl(var(--neon-purple));
+  text-shadow: var(--neon-purple-shadow);
+}
+
+/* Optional: Set background and foreground for neon theme */
+body {
+  background: linear-gradient(135deg, #2c2c54 0%, #1a1a3d 100%);
+  color: #e6e6fa;
 }

@@ -40,6 +40,9 @@ const buttonVariants = cva(
           "bg-transparent text-slate-500 border-2 border-transparent hover:bg-slate-100 transition-none",
         sidebarOutline:
           "bg-sky-500/15 text-sky-500 border-sky-300 border-2 hover:bg-sky-500/20 transition-none",
+
+        neonPurple:
+          "bg-[hsl(270,100%,60%)] text-white border-[hsl(270,100%,60%)] border-b-4 active:border-b-0 shadow-[0_0_8px_#a259ff,0_0_16px_#a259ff] hover:bg-[hsl(270,100%,70%)] transition-all duration-200",
       },
       size: {
         default: "h-11 px-4 py-2",

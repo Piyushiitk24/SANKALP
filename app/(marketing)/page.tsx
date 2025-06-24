@@ -36,7 +36,11 @@ export default function MarketingPage() {
                 afterSignInUrl="/learn"
                 afterSignUpUrl="/learn"
               >
-                <Button size="lg" variant="secondary" className="w-full">
+                <Button
+                  size="lg"
+                  variant="neonPurple"
+                  className="w-full neon-purple-glow"
+                >
                   Get Started
                 </Button>
               </SignUpButton>
