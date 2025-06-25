@@ -5,60 +5,80 @@ import { Button } from "@/components/ui/button";
 export const Footer = () => {
   return (
     <div className="hidden h-20 w-full border-t-2 border-slate-200 p-2 lg:block">
-      <div className="mx-auto flex h-full max-w-screen-lg items-center justify-evenly">
-        <Button size="lg" variant="ghost" className="w-full cursor-default">
+      <div className="mx-auto flex h-full max-w-screen-lg items-center justify-evenly gap-x-2">
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full cursor-default flex justify-center"
+        >
           <Image
-            src="/hr.svg"
-            alt="Croatian"
+            src="/lt.png"
+            alt="Learning Theories"
             height={32}
             width={40}
             className="mr-4 h-auto rounded-md"
           />
-          Croatian
+          Learning Theories
         </Button>
 
-        <Button size="lg" variant="ghost" className="w-full cursor-default">
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full cursor-default flex justify-center"
+        >
           <Image
-            src="/es.svg"
-            alt="Spanish"
+            src="/bt.png"
+            alt="Bloom's Taxonomy"
             height={32}
             width={40}
             className="mr-4 h-auto rounded-md"
           />
-          Spanish
+          Bloom&apos;s Taxonomy
         </Button>
 
-        <Button size="lg" variant="ghost" className="w-full cursor-default">
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full cursor-default flex justify-center"
+        >
           <Image
-            src="/fr.svg"
-            alt="French"
+            src="/ag.png"
+            alt="Andragogy"
             height={32}
             width={40}
             className="mr-4 h-auto rounded-md"
           />
-          French
+          Andragogy
         </Button>
 
-        <Button size="lg" variant="ghost" className="w-full cursor-default">
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full cursor-default flex justify-center"
+        >
           <Image
-            src="/it.svg"
-            alt="Italian"
+            src="/st.png"
+            alt="Systematic Approach to Training (SAT)"
             height={32}
             width={40}
             className="mr-4 h-auto rounded-md"
           />
-          Italian
+          Systematic Approach to Training (SAT)
         </Button>
 
-        <Button size="lg" variant="ghost" className="w-full cursor-default">
+        <Button
+          size="lg"
+          variant="ghost"
+          className="w-full cursor-default flex justify-center"
+        >
           <Image
-            src="/jp.svg"
-            alt="Japanese"
+            src="/dl.png"
+            alt="Domains of Learning"
             height={32}
             width={40}
             className="mr-4 h-auto rounded-md"
           />
-          Japanese
+          Domains of Learning
         </Button>
       </div>
     </div>

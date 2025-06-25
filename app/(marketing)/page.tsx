@@ -16,7 +16,7 @@ export default function MarketingPage() {
   return (
     <div className="mx-auto flex w-full max-w-[988px] flex-1 flex-col items-center justify-center gap-2 p-4 lg:flex-row">
       <div className="relative mb-8 h-[240px] w-[240px] lg:mb-0 lg:h-[424px] lg:w-[424px]">
-        <Image src="/hero.svg" alt="Hero" fill />
+        <Image src="/heronew.png" alt="Hero" fill />
       </div>
 
       <div className="flex flex-col items-center gap-y-8">
@@ -50,7 +50,11 @@ export default function MarketingPage() {
                 afterSignInUrl="/learn"
                 afterSignUpUrl="/learn"
               >
-                <Button size="lg" variant="primaryOutline" className="w-full">
+                <Button
+                  size="lg"
+                  variant="ghost"
+                  className="w-full text-[#a259ff]"
+                >
                   I already have an account
                 </Button>
               </SignInButton>
