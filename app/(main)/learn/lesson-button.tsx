@@ -61,10 +61,10 @@ export const LessonButton = ({
       >
         {current ? (
           <div className="relative h-[102px] w-[102px]">
-            <div className="absolute -top-6 left-2.5 z-10 animate-bounce rounded-xl border-2 bg-white px-3 py-2.5 font-bold uppercase tracking-wide text-green-500">
+            <div className="absolute -top-6 left-2.5 z-10 animate-bounce rounded-xl border-2 bg-white px-3 py-2.5 font-bold uppercase tracking-wide text-[#a259ff] shadow-[0_0_8px_#a259ff,0_0_16px_#a259ff]">
               Start
               <div
-                className="absolute -bottom-2 left-1/2 h-0 w-0 -translate-x-1/2 transform border-x-8 border-t-8 border-x-transparent"
+                className="absolute -bottom-2 left-1/2 h-0 w-0 -translate-x-1/2 transform border-x-8 border-t-8 border-x-transparent border-t-[#a259ff]"
                 aria-hidden
               />
             </div>
@@ -72,7 +72,7 @@ export const LessonButton = ({
               value={Number.isNaN(percentage) ? 0 : percentage}
               styles={{
                 path: {
-                  stroke: "#4ade80",
+                  stroke: "#a259ff",
                 },
                 trail: {
                   stroke: "#e5e7eb",
@@ -81,15 +81,15 @@ export const LessonButton = ({
             >
               <Button
                 size="rounded"
-                variant={locked ? "locked" : "secondary"}
-                className="h-[70px] w-[70px] border-b-8"
+                variant={locked ? "locked" : "neonPurple"}
+                className="h-[70px] w-[70px] border-b-8 shadow-[0_0_8px_#a259ff,0_0_16px_#a259ff]"
               >
                 <Icon
                   className={cn(
                     "h-10 w-10",
                     locked
                       ? "fill-neutral-400 stroke-neutral-400 text-neutral-400"
-                      : "fill-primary-foreground text-primary-foreground",
+                      : "fill-white text-white",
                     isCompleted && "fill-none stroke-[4]"
                   )}
                 />

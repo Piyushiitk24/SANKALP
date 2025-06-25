@@ -16,8 +16,12 @@ export const Promo = () => {
         <p className="text-muted-foreground">Get unlimited hearts and more!</p>
       </div>
 
-      <Button variant="super" className="w-full" size="lg" asChild>
-        <Link href="/shop">Upgrade today</Link>
+      <Button
+        size="lg"
+        variant="neonPurple"
+        className="w-full font-bold text-lg shadow-[0_0_8px_#a259ff,0_0_16px_#a259ff]"
+      >
+        UPGRADE TODAY
       </Button>
     </div>
   );

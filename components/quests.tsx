@@ -14,7 +14,11 @@ export const Quests = ({ points }: QuestsProps) => {
         <h3 className="text-lg font-bold">Quests</h3>
 
         <Link href="/quests">
-          <Button size="sm" variant="primaryOutline">
+          <Button
+            size="sm"
+            variant="neonPurple"
+            className="shadow-[0_0_8px_#a259ff,0_0_16px_#a259ff]"
+          >
             View all
           </Button>
         </Link>
