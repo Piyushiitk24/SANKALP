@@ -140,13 +140,20 @@ export const Quiz = ({
           .then((response) => {
             if (response?.error === "hearts") {
               openHeartsModal();
+              // Update hearts to the returned value (should be 0)
+              if (typeof response.hearts === 'number') {
+                setHearts(response.hearts);
+              }
               return;
             }
 
             void incorrectControls.play();
             setStatus("wrong");
 
-            if (!response?.error) setHearts((prev) => Math.max(prev - 1, 0));
+            // Update hearts to the returned value from server
+            if (typeof response?.hearts === 'number') {
+              setHearts(response.hearts);
+            }
           })
           .catch(() => toast.error("Something went wrong. Please try again."));
       });

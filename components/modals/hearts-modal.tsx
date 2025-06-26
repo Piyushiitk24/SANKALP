@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { refillHearts } from "@/actions/user-progress";
+import { refillHeartsFromVideo } from "@/actions/user-progress";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -23,6 +23,7 @@ export const HeartsModal = () => {
   const { isOpen, close } = useHeartsModal();
   const [showVideo, setShowVideo] = useState(false);
   const [videoWatched, setVideoWatched] = useState(false);
+  const [isRefilling, setIsRefilling] = useState(false);
 
   useEffect(() => setIsClient(true), []);
 
@@ -37,10 +38,24 @@ export const HeartsModal = () => {
     }
   };
 
-  const handleRefill = () => {
-    void refillHearts();
-    setShowVideo(false);
-    close();
+  const handleRefill = async () => {
+    try {
+      setIsRefilling(true);
+      await refillHeartsFromVideo();
+      setShowVideo(false);
+      close();
+      // Refresh the page data to update hearts display
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to refill hearts:", error);
+      // You could add a toast notification here if needed
+    } finally {
+      setIsRefilling(false);
+    }
+  };
+
+  const handleRefillClick = () => {
+    void handleRefill();
   };
 
   if (!isClient) return null;
@@ -63,7 +78,7 @@ export const HeartsModal = () => {
           </DialogTitle>
 
           <DialogDescription className="text-center text-base">
-            Get Pro for unlimited hearts, or purchase them in the store.
+            Get Pro for unlimited hearts, purchase them in the store, or watch a short video to refill them for free.
           </DialogDescription>
         </DialogHeader>
 
@@ -110,10 +125,15 @@ export const HeartsModal = () => {
               </video>
               <Button
                 className="mt-4"
-                onClick={handleRefill}
-                disabled={!videoWatched}
+                onClick={handleRefillClick}
+                disabled={!videoWatched || isRefilling}
               >
-                {videoWatched ? "Refill Hearts" : "Watch 30 seconds to refill"}
+                {isRefilling 
+                  ? "Refilling hearts..." 
+                  : videoWatched 
+                    ? "Refill Hearts" 
+                    : "Watch 30 seconds to refill"
+                }
               </Button>
             </div>
           )}

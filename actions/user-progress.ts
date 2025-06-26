@@ -89,18 +89,32 @@ export const reduceHearts = async (challengeId: number) => {
 
   if (currentUserProgress.hearts === 0) return { error: "hearts" };
 
+  const newHeartCount = Math.max(currentUserProgress.hearts - 1, 0);
+
   await db
     .update(userProgress)
     .set({
-      hearts: Math.max(currentUserProgress.hearts - 1, 0),
+      hearts: newHeartCount,
     })
     .where(eq(userProgress.userId, userId));
+
+  // If hearts become 0 after this reduction, return hearts error
+  if (newHeartCount === 0) {
+    revalidatePath("/shop");
+    revalidatePath("/learn");
+    revalidatePath("/quests");
+    revalidatePath("/leaderboard");
+    revalidatePath(`/lesson/${lessonId}`);
+    return { error: "hearts", hearts: newHeartCount };
+  }
 
   revalidatePath("/shop");
   revalidatePath("/learn");
   revalidatePath("/quests");
   revalidatePath("/leaderboard");
   revalidatePath(`/lesson/${lessonId}`);
+  
+  return { hearts: newHeartCount };
 };
 
 export const refillHearts = async () => {
@@ -124,4 +138,26 @@ export const refillHearts = async () => {
   revalidatePath("/learn");
   revalidatePath("/quests");
   revalidatePath("/leaderboard");
+};
+
+export const refillHeartsFromVideo = async () => {
+  const currentUserProgress = await getUserProgress();
+
+  if (!currentUserProgress) throw new Error("User progress not found.");
+  if (currentUserProgress.hearts === MAX_HEARTS)
+    throw new Error("Hearts are already full.");
+
+  await db
+    .update(userProgress)
+    .set({
+      hearts: MAX_HEARTS,
+    })
+    .where(eq(userProgress.userId, currentUserProgress.userId));
+
+  revalidatePath("/shop");
+  revalidatePath("/learn");
+  revalidatePath("/quests");
+  revalidatePath("/leaderboard");
+  revalidatePath("/lesson");
+  revalidatePath("/lesson/[lessonId]", "page");
 };
