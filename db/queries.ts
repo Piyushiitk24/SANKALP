@@ -17,11 +17,11 @@ import {
 
 const DAY_IN_MS = 86_400_000;
 
-export const getCourses = cache(async () => {
+export const getCourses = async () => {
   const data = await db.query.courses.findMany();
 
   return data;
-});
+};
 
 export const getUserProgress = cache(async () => {
   const { userId } = auth();

@@ -15,10 +15,14 @@ type Course = {
   imageSrc: string;
 };
 
-export const GuestCourseSelection = () => {
+type Props = {
+  courses?: Course[];
+};
+
+export const GuestCourseSelection = ({ courses: propCourses }: Props = {}) => {
   const router = useRouter();
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [courses, setCourses] = useState<Course[]>(propCourses || []);
+  const [isLoading, setIsLoading] = useState(!propCourses);
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
 
   useEffect(() => {
@@ -29,30 +33,34 @@ export const GuestCourseSelection = () => {
       setGuestUser(guestUser);
     }
 
-    // Fetch courses - we'll need to make this work without authentication
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch("/api/public/courses");
-        if (response.ok) {
-          const data = await response.json() as { success: boolean; courses: Course[] };
-          if (data.success) {
-            setCourses(data.courses);
+    // Only fetch courses if not provided as props
+    if (!propCourses) {
+      const fetchCourses = async () => {
+        try {
+          const response = await fetch("/api/public/courses");
+          if (response.ok) {
+            const data = await response.json() as { success: boolean; courses: Course[] };
+            if (data.success) {
+              setCourses(data.courses);
+            } else {
+              throw new Error("Failed to fetch courses from API");
+            }
           } else {
-            throw new Error("Failed to fetch courses from API");
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
           }
-        } else {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        } catch (error) {
+          console.error("Failed to fetch courses:", error);
+          toast.error("Failed to load courses");
+        } finally {
+          setIsLoading(false);
         }
-      } catch (error) {
-        console.error("Failed to fetch courses:", error);
-        toast.error("Failed to load courses");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      };
 
-    void fetchCourses();
-  }, []);
+      void fetchCourses();
+    } else {
+      setIsLoading(false);
+    }
+  }, [propCourses]);
 
   const handleCourseSelect = (courseId: number) => {
     try {
