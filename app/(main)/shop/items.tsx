@@ -4,11 +4,14 @@ import { useTransition } from "react";
 
 import Image from "next/image";
 import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
 
 import { refillHearts } from "@/actions/user-progress";
 import { createStripeUrl } from "@/actions/user-subscription";
 import { Button } from "@/components/ui/button";
 import { MAX_HEARTS, POINTS_TO_REFILL } from "@/constants";
+import { useGuestUser } from "@/hooks/use-guest-user";
+import { refillGuestHearts } from "@/lib/guest-progress";
 
 type ItemsProps = {
   hearts: number;
@@ -21,17 +24,39 @@ export const Items = ({
   points,
   hasActiveSubscription,
 }: ItemsProps) => {
+  const { user } = useUser();
+  const { guestUser, updateUser } = useGuestUser();
   const [pending, startTransition] = useTransition();
 
   const onRefillHearts = () => {
     if (pending || hearts === MAX_HEARTS || points < POINTS_TO_REFILL) return;
 
-    startTransition(() => {
-      refillHearts().catch(() => toast.error("Something went wrong."));
-    });
+    if (user) {
+      // Authenticated user - use server action
+      startTransition(() => {
+        refillHearts().catch(() => toast.error("Something went wrong."));
+      });
+    } else if (guestUser) {
+      // Guest user - handle client-side
+      const result = refillGuestHearts();
+      if (result.success) {
+        updateUser({ 
+          hearts: result.hearts || MAX_HEARTS,
+          points: guestUser.points - POINTS_TO_REFILL 
+        });
+        toast.success("Hearts refilled!");
+      } else {
+        toast.error("Unable to refill hearts.");
+      }
+    }
   };
 
   const onUpgrade = () => {
+    if (!user) {
+      toast.error("Please sign up to access premium features!");
+      return;
+    }
+
     toast.loading("Redirecting to checkout...");
     startTransition(() => {
       createStripeUrl()
@@ -81,10 +106,15 @@ export const Items = ({
           <p className="text-base font-bold text-neutral-700 lg:text-xl">
             Unlimited hearts
           </p>
+          {!user && (
+            <p className="text-sm text-muted-foreground">
+              Sign up required
+            </p>
+          )}
         </div>
 
         <Button onClick={onUpgrade} disabled={pending} aria-disabled={pending}>
-          {hasActiveSubscription ? "settings" : "upgrade"}
+          {!user ? "Sign up" : hasActiveSubscription ? "settings" : "upgrade"}
         </Button>
       </div>
     </ul>

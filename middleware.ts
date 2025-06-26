@@ -4,6 +4,8 @@ export default authMiddleware({
   publicRoutes: [
     "/", 
     "/api/webhooks/stripe",
+    "/api/public/courses",
+    "/api/public/(.*)",
     "/learn",
     "/courses", 
     "/lesson",

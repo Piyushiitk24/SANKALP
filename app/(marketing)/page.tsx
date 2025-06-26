@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -9,10 +11,13 @@ import {
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { GuestDisclaimerModal } from "@/components/modals/guest-disclaimer-modal";
 
 export default function MarketingPage() {
+  const [showGuestModal, setShowGuestModal] = useState(false);
   return (
     <div className="mx-auto flex w-full max-w-[988px] flex-1 flex-col items-center justify-center gap-2 p-4 lg:flex-row">
       <div className="relative mb-8 h-[240px] w-[240px] lg:mb-0 lg:h-[424px] lg:w-[424px]">
@@ -61,11 +66,11 @@ export default function MarketingPage() {
 
               <Button
                 size="lg"
-                variant="secondary"
-                className="w-full"
-                asChild
+                variant="ghost"
+                className="w-full text-[#a259ff]"
+                onClick={() => setShowGuestModal(true)}
               >
-                <Link href="/learn">Continue as Guest</Link>
+                Continue as Guest
               </Button>
             </SignedOut>
 
@@ -76,6 +81,11 @@ export default function MarketingPage() {
             </SignedIn>
           </ClerkLoaded>
         </div>
+
+        <GuestDisclaimerModal
+          isOpen={showGuestModal}
+          onClose={() => setShowGuestModal(false)}
+        />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 import { refillHeartsFromVideo } from "@/actions/user-progress";
 import { Button } from "@/components/ui/button";
@@ -16,9 +17,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useHeartsModal } from "@/store/use-hearts-modal";
+import { useGuestUser } from "@/hooks/use-guest-user";
+import { refillGuestHearts } from "@/lib/guest-progress";
+import { MAX_HEARTS } from "@/constants";
 
 export const HeartsModal = () => {
   const router = useRouter();
+  const { user } = useUser();
+  const { guestUser, updateUser } = useGuestUser();
   const [isClient, setIsClient] = useState(false);
   const { isOpen, close, onHeartsRefilled } = useHeartsModal();
   const [showVideo, setShowVideo] = useState(false);
@@ -29,7 +35,12 @@ export const HeartsModal = () => {
 
   const onClick = () => {
     close();
-    router.push("/store");
+    if (user) {
+      router.push("/shop");
+    } else {
+      // For guests, redirect to sign up
+      router.push("/sign-up");
+    }
   };
 
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -41,7 +52,18 @@ export const HeartsModal = () => {
   const handleRefill = async () => {
     try {
       setIsRefilling(true);
-      await refillHeartsFromVideo();
+      
+      if (user) {
+        // Authenticated user - use server action
+        await refillHeartsFromVideo();
+      } else if (guestUser) {
+        // Guest user - handle client-side
+        const result = refillGuestHearts();
+        if (result.success) {
+          updateUser({ hearts: result.hearts || MAX_HEARTS });
+        }
+      }
+      
       setShowVideo(false);
       
       // Call the callback to update hearts in the quiz component
@@ -84,7 +106,10 @@ export const HeartsModal = () => {
           </DialogTitle>
 
           <DialogDescription className="text-center text-base">
-            Get Pro for unlimited hearts, purchase them in the store, or watch a short video to refill them for free.
+            {user 
+              ? "Get Pro for unlimited hearts, purchase them in the store, or watch a short video to refill them for free."
+              : "Sign up to get Pro for unlimited hearts, or watch a short video to refill them for free."
+            }
           </DialogDescription>
         </DialogHeader>
 
@@ -96,7 +121,7 @@ export const HeartsModal = () => {
               size="lg"
               onClick={onClick}
             >
-              Get unlimited hearts
+              {user ? "Get unlimited hearts" : "Sign up for unlimited hearts"}
             </Button>
 
             <Button

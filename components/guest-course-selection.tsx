@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { selectCourseAsGuest } from "@/actions/user-progress";
 import { Button } from "@/components/ui/button";
 import { updateGuestUser } from "@/lib/guest-user";
 
@@ -42,15 +41,22 @@ export const GuestCourseSelection = () => {
     void fetchCourses();
   }, []);
 
-  const handleCourseSelect = async (courseId: number) => {
+  const handleCourseSelect = (courseId: number) => {
     try {
       setSelectedCourse(courseId);
+      console.log("Attempting to select course:", courseId);
 
-      // Validate course on server
-      await selectCourseAsGuest(courseId);
+      // Find the course in our local data to validate it exists
+      const selectedCourseData = courses.find(course => course.id === courseId);
+      if (!selectedCourseData) {
+        throw new Error("Course not found");
+      }
 
-      // Update guest user locally
+      console.log("Course found locally:", selectedCourseData.title);
+
+      // Update guest user locally (no server validation needed for guest users)
       const updatedUser = updateGuestUser({ activeCourseId: courseId });
+      console.log("Updated guest user:", updatedUser);
       
       if (updatedUser) {
         toast.success("Course selected! Starting your learning journey...");
@@ -60,8 +66,8 @@ export const GuestCourseSelection = () => {
         throw new Error("Failed to update guest user");
       }
     } catch (error) {
-      console.error("Failed to select course:", error);
-      toast.error("Failed to select course. Please try again.");
+      console.error("Full error in handleCourseSelect:", error);
+      toast.error(`Failed to select course: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setSelectedCourse(null);
     }
   };

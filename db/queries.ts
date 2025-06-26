@@ -26,23 +26,8 @@ export const getCourses = cache(async () => {
 export const getUserProgress = cache(async () => {
   const { userId } = auth();
 
-  // Handle guest users
+  // Return null for non-authenticated users - guest handling will be done client-side
   if (!userId) {
-    if (typeof window !== "undefined") {
-      const guestUser = getGuestUser();
-      if (guestUser && guestUser.activeCourseId) {
-        // Fetch the active course details for guest user
-        const activeCourse = await db.query.courses.findFirst({
-          where: eq(courses.id, guestUser.activeCourseId),
-        });
-        
-        return {
-          ...guestUser,
-          activeCourse,
-        };
-      }
-      return guestUser;
-    }
     return null;
   }
 
@@ -60,10 +45,14 @@ export const getUnits = cache(async () => {
   const { userId } = auth();
   const userProgressData = await getUserProgress();
 
-  if (!userProgressData?.activeCourseId) return [];
+  if (!userProgressData?.activeCourseId) {
+    // For guest users or users without progress, return empty array
+    // Guest user data will be handled client-side
+    return [];
+  }
 
-  // For guest users, we don't track challenge progress in the database
   if (!userId) {
+    // For guest users, return basic structure without progress
     const data = await db.query.units.findMany({
       where: eq(units.courseId, userProgressData.activeCourseId),
       orderBy: (units, { asc }) => [asc(units.order)],
