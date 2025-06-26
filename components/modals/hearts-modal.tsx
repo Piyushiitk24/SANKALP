@@ -15,17 +15,32 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useHeartsModal } from "@/store/use-hearts-modal";
+import { refillHearts } from "@/actions/user-progress";
 
 export const HeartsModal = () => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const { isOpen, close } = useHeartsModal();
+  const [showVideo, setShowVideo] = useState(false);
+  const [videoWatched, setVideoWatched] = useState(false);
 
   useEffect(() => setIsClient(true), []);
 
   const onClick = () => {
     close();
     router.push("/store");
+  };
+
+  const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    if (e.currentTarget.currentTime >= 30 && !videoWatched) {
+      setVideoWatched(true);
+    }
+  };
+
+  const handleRefill = async () => {
+    await refillHearts();
+    setShowVideo(false);
+    close();
   };
 
   if (!isClient) return null;
@@ -71,7 +86,37 @@ export const HeartsModal = () => {
             >
               No thanks
             </Button>
+
+            <Button
+              variant="secondary"
+              className="w-full"
+              size="lg"
+              onClick={() => setShowVideo(true)}
+            >
+              Watch a video to refill hearts
+            </Button>
           </div>
+
+          {showVideo && (
+            <div className="mt-4 flex flex-col items-center">
+              <video
+                width={320}
+                height={180}
+                controls
+                onTimeUpdate={handleTimeUpdate}
+              >
+                <source src="/bt.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <Button
+                className="mt-4"
+                onClick={handleRefill}
+                disabled={!videoWatched}
+              >
+                {videoWatched ? "Refill Hearts" : "Watch 30 seconds to refill"}
+              </Button>
+            </div>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

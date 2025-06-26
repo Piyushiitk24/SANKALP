@@ -37,151 +37,551 @@ const main = async () => {
 
     // For each course, insert units
     for (const course of courses) {
-      
-      // --- COMMENTED OUT: Original Bloom's Taxonomy Content ---
-      /*
-      if (course.title !== "Bloom's Taxonomy") continue;
-
-      // Unit 1: Remembering
-      const unit1 = await db.insert(schema.units).values({
-        courseId: course.id,
-        title: "Unit 1: Remembering",
-        description: "Learn the basics of recalling facts and concepts.",
-        order: 1,
-      }).returning();
-
-      const lesson1 = await db.insert(schema.lessons).values({
-        unitId: unit1[0].id,
-        title: "Foundations of Recall",
-        order: 1,
-      }).returning();
-
-      // ... rest of original Bloom's content ...
-      */
-
-      // --- NEW COURSE CONTENT ---
-
-      // Course 1: Bloom's Taxonomy
       if (course.title === "Bloom's Taxonomy") {
-        const bloomsUnits = await db.insert(schema.units).values([
-          { courseId: course.id, title: "Unit 1: Introduction", description: "Fundamentals of Bloom's Taxonomy.", order: 1 },
-          { courseId: course.id, title: "Unit 2: The Cognitive Domain (Revised)", description: "Exploring the levels of thinking.", order: 2 },
-          { courseId: course.id, title: "Unit 3: Practical Application", description: "Using the taxonomy in teaching.", order: 3 },
+        const units = await db.insert(schema.units).values([
+          {
+            courseId: course.id,
+            title: "Unit 1: The Basics of Bloom's Taxonomy",
+            description: "Learn the fundamentals of Bloom's Taxonomy",
+            order: 1,
+          },
+          {
+            courseId: course.id,
+            title: "Unit 2: The Lower-Order Thinking Skills (LOTS)",
+            description: "Focus on the foundational cognitive skills",
+            order: 2,
+          },
+          {
+            courseId: course.id,
+            title: "Unit 3: The Higher-Order Thinking Skills (HOTS)",
+            description: "Explore the more advanced cognitive skills",
+            order: 3,
+          },
+          {
+            courseId: course.id,
+            title: "Unit 4: Applying Bloom's Taxonomy in the Classroom",
+            description: "Learn to apply the taxonomy in a practical setting",
+            order: 4,
+          },
         ]).returning();
 
-        for (const unit of bloomsUnits) {
+        for (const unit of units) {
+          // Unit 1
           if (unit.order === 1) {
-            const lesson1 = await db.insert(schema.lessons).values({ 
-              unitId: unit.id, 
-              title: "History and Purpose", 
-              order: 1 
-            }).returning();
-            
-            const challenges1 = await db.insert(schema.challenges).values([
-              { lessonId: lesson1[0].id, type: "SELECT", question: "Who led the committee of educators that developed the original taxonomy?", order: 1 },
-              { lessonId: lesson1[0].id, type: "SELECT", question: "What year was the original Bloom's Taxonomy published?", order: 2 },
-              { lessonId: lesson1[0].id, type: "SELECT", question: "What was the primary purpose of developing Bloom's Taxonomy?", order: 3 },
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Introduction to Bloom's Taxonomy", order: 1 },
+              { unitId: unit.id, title: "The Original vs. Revised Taxonomy", order: 2 },
+              { unitId: unit.id, title: "The Cognitive Domain", order: 3 },
+              { unitId: unit.id, title: "The Affective and Psychomotor Domains", order: 4 },
             ]).returning();
 
-            for (const challenge of challenges1) {
-              if (challenge.order === 1) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "Benjamin Bloom" },
-                  { challengeId: challenge.id, correct: false, text: "B.F. Skinner" },
-                  { challengeId: challenge.id, correct: false, text: "Jean Piaget" },
-                ]);
-              }
-              if (challenge.order === 2) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "1956" },
-                  { challengeId: challenge.id, correct: false, text: "1962" },
-                  { challengeId: challenge.id, correct: false, text: "1948" },
-                ]);
-              }
-              if (challenge.order === 3) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "To classify learning objectives" },
-                  { challengeId: challenge.id, correct: false, text: "To rank students by intelligence" },
-                  { challengeId: challenge.id, correct: false, text: "To provide classroom management techniques" },
-                ]);
-              }
-            }
+            // Lesson 1
+            let challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "What is the primary purpose of Bloom's Taxonomy in education?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "Who led the team of educational psychologists that developed the taxonomy?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "Bloom's Taxonomy is a hierarchical model, which means:",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "To rank students based on their intelligence." },
+              { challengeId: challenges[0].id, correct: true, text: "To provide a framework for categorizing educational goals and objectives." },
+              { challengeId: challenges[0].id, correct: false, text: "To dictate the curriculum for all subjects." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Benjamin Bloom" },
+              { challengeId: challenges[1].id, correct: false, text: "B.F. Skinner" },
+              { challengeId: challenges[1].id, correct: false, text: "Jean Piaget" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Each level builds upon the one before it." },
+              { challengeId: challenges[2].id, correct: false, text: "All levels are of equal importance." },
+              { challengeId: challenges[2].id, correct: false, text: "The levels are independent of each other." },
+            ]);
+
+            // Lesson 2
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "In the revised version of Bloom's Taxonomy, which is the highest level of cognitive skill?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "What is the primary difference between the original and revised taxonomy?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "Which level was replaced by 'Creating' in the revised taxonomy?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Evaluating" },
+              { challengeId: challenges[0].id, correct: false, text: "Synthesizing" },
+              { challengeId: challenges[0].id, correct: true, text: "Creating" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "The revised version uses verbs instead of nouns for the levels." },
+              { challengeId: challenges[1].id, correct: false, text: "The original version had more levels." },
+              { challengeId: challenges[1].id, correct: false, text: "The revised version is only for digital learning." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: false, text: "Knowledge" },
+              { challengeId: challenges[2].id, correct: true, text: "Synthesis" },
+              { challengeId: challenges[2].id, correct: false, text: "Application" },
+            ]);
+
+            // Lesson 3
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "The cognitive domain of Bloom's Taxonomy deals with:",
+                order: 1,
+              },
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "Which of these is a lower-order thinking skill in the cognitive domain?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "Which of these is a higher-order thinking skill in the cognitive domain?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Emotional responses and attitudes." },
+              { challengeId: challenges[0].id, correct: true, text: "Intellectual skills and knowledge acquisition." },
+              { challengeId: challenges[0].id, correct: false, text: "Physical skills and motor abilities." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Remembering" },
+              { challengeId: challenges[1].id, correct: false, text: "Analyzing" },
+              { challengeId: challenges[1].id, correct: false, text: "Evaluating" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: false, text: "Understanding" },
+              { challengeId: challenges[2].id, correct: false, text: "Applying" },
+              { challengeId: challenges[2].id, correct: true, text: "Creating" },
+            ]);
+
+            // Lesson 4
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[3].id,
+                type: "SELECT",
+                question: "A teacher wants to assess a student's ability to show empathy. Which domain of Bloom's Taxonomy would this fall under?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[3].id,
+                type: "SELECT",
+                question: "The psychomotor domain focuses on:",
+                order: 2,
+              },
+              {
+                lessonId: lessons[3].id,
+                type: "SELECT",
+                question: "Which activity primarily involves the affective domain?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Cognitive" },
+              { challengeId: challenges[0].id, correct: true, text: "Affective" },
+              { challengeId: challenges[0].id, correct: false, text: "Psychomotor" },
+            ]);
+             await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Physical skills and coordination" },
+              { challengeId: challenges[1].id, correct: false, text: "Problem-solving and critical thinking" },
+              { challengeId: challenges[1].id, correct: false, text: "Values and attitudes" },
+            ]);
+             await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: false, text: "Solving a math problem" },
+              { challengeId: challenges[2].id, correct: true, text: "Participating in a group discussion" },
+              { challengeId: challenges[2].id, correct: false, text: "Writing a research paper" },
+            ]);
           }
-          
+
+          // Unit 2
           if (unit.order === 2) {
-            const lesson2 = await db.insert(schema.lessons).values({ 
-              unitId: unit.id, 
-              title: "Remembering & Understanding", 
-              order: 1 
-            }).returning();
-            
-            const challenges2 = await db.insert(schema.challenges).values([
-              { lessonId: lesson2[0].id, type: "SELECT", question: "Which level involves explaining ideas or concepts?", order: 1 },
-              { lessonId: lesson2[0].id, type: "SELECT", question: "What is the lowest level of the cognitive domain?", order: 2 },
-              { lessonId: lesson2[0].id, type: "SELECT", question: "Which verb is associated with the 'Understanding' level?", order: 3 },
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Remembering", order: 1 },
+              { unitId: unit.id, title: "Understanding", order: 2 },
+              { unitId: unit.id, title: "Applying", order: 3 },
             ]).returning();
 
-            for (const challenge of challenges2) {
-              if (challenge.order === 1) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "Understanding" },
-                  { challengeId: challenge.id, correct: false, text: "Remembering" },
-                  { challengeId: challenge.id, correct: false, text: "Applying" },
-                ]);
-              }
-              if (challenge.order === 2) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "Remembering" },
-                  { challengeId: challenge.id, correct: false, text: "Understanding" },
-                  { challengeId: challenge.id, correct: false, text: "Applying" },
-                ]);
-              }
-              if (challenge.order === 3) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "Explain" },
-                  { challengeId: challenge.id, correct: false, text: "List" },
-                  { challengeId: challenge.id, correct: false, text: "Create" },
-                ]);
-              }
-            }
+            // Lesson 1
+            let challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "Which of the following is an example of a \"Remembering\" level activity?",
+                order: 1,
+              },
+               {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "Which verb is most associated with the 'Remembering' level?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "A student listing the capitals of European countries is operating at what level?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Summarizing a story." },
+              { challengeId: challenges[0].id, correct: true, text: "Recalling the dates of historical events." },
+              { challengeId: challenges[0].id, correct: false, text: "Writing a new ending for a play." },
+            ]);
+             await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "List" },
+              { challengeId: challenges[1].id, correct: false, text: "Explain" },
+              { challengeId: challenges[1].id, correct: false, text: "Critique" },
+            ]);
+             await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Remembering" },
+              { challengeId: challenges[2].id, correct: false, text: "Understanding" },
+              { challengeId: challenges[2].id, correct: false, text: "Applying" },
+            ]);
+
+            // Lesson 2
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "A student who can explain a scientific concept in their own words is demonstrating which level of Bloom's Taxonomy?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "Which of the following is NOT an example of 'Understanding'?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "What is the key difference between 'Remembering' and 'Understanding'?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Remembering" },
+              { challengeId: challenges[0].id, correct: true, text: "Understanding" },
+              { challengeId: challenges[0].id, correct: false, text: "Applying" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: false, text: "Paraphrasing a speech" },
+              { challengeId: challenges[1].id, correct: true, text: "Reciting a poem from memory" },
+              { challengeId: challenges[1].id, correct: false, text: "Giving examples of a concept" },
+            ]);
+             await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Remembering is about recalling facts, while understanding is about explaining ideas." },
+              { challengeId: challenges[2].id, correct: false, text: "Understanding involves creating something new, while remembering does not." },
+              { challengeId: challenges[2].id, correct: false, text: "There is no difference between the two." },
+            ]);
+
+            // Lesson 3
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "\"Use the formula for calculating the area of a circle to solve the following problems.\" This is an example of an instruction at which level?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "Which of the following activities best represents the 'Applying' level?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "What is a key requirement for a student to be at the 'Applying' level?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Remembering" },
+              { challengeId: challenges[0].id, correct: false, text: "Understanding" },
+              { challengeId: challenges[0].id, correct: true, text: "Applying" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: false, text: "Listing the steps of a process." },
+              { challengeId: challenges[1].id, correct: true, text: "Using a learned procedure in a new situation." },
+              { challengeId: challenges[1].id, correct: false, text: "Explaining the theory behind a process." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "The ability to use knowledge in a practical way." },
+              { challengeId: challenges[2].id, correct: false, text: "The ability to memorize facts and figures." },
+              { challengeId: challenges[2].id, correct: false, text: "The ability to form an opinion on a topic." },
+            ]);
           }
-          
+
+          // Unit 3
           if (unit.order === 3) {
-            const lesson3 = await db.insert(schema.lessons).values({ 
-              unitId: unit.id, 
-              title: "Writing Objectives", 
-              order: 1 
-            }).returning();
-            
-            const challenges3 = await db.insert(schema.challenges).values([
-              { lessonId: lesson3[0].id, type: "SELECT", question: "Which verb is best for an 'Evaluating' level objective?", order: 1 },
-              { lessonId: lesson3[0].id, type: "SELECT", question: "What is the highest level of the revised taxonomy?", order: 2 },
-              { lessonId: lesson3[0].id, type: "SELECT", question: "Which level involves using knowledge in new situations?", order: 3 },
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Analyzing", order: 1 },
+              { unitId: unit.id, title: "Evaluating", order: 2 },
+              { unitId: unit.id, title: "Creating", order: 3 },
             ]).returning();
 
-            for (const challenge of challenges3) {
-              if (challenge.order === 1) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "Critique" },
-                  { challengeId: challenge.id, correct: false, text: "List" },
-                  { challengeId: challenge.id, correct: false, text: "Build" },
-                ]);
-              }
-              if (challenge.order === 2) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "Creating" },
-                  { challengeId: challenge.id, correct: false, text: "Evaluating" },
-                  { challengeId: challenge.id, correct: false, text: "Analyzing" },
-                ]);
-              }
-              if (challenge.order === 3) {
-                await db.insert(schema.challengeOptions).values([
-                  { challengeId: challenge.id, correct: true, text: "Applying" },
-                  { challengeId: challenge.id, correct: false, text: "Remembering" },
-                  { challengeId: challenge.id, correct: false, text: "Understanding" },
-                ]);
-              }
-            }
+            // Lesson 1
+            let challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "Which activity best represents the \"Analyzing\" level of Bloom's Taxonomy?",
+                order: 1,
+              },
+               {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "What is the key difference between 'Analyzing' and 'Applying'?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "A student who can distinguish between fact and opinion in a text is operating at which level?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Listing the main characters in a story." },
+              { challengeId: challenges[0].id, correct: true, text: "Identifying the author's bias in a text." },
+              { challengeId: challenges[0].id, correct: false, text: "Writing a summary of an article." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Analyzing involves breaking down information, while applying involves using it." },
+              { challengeId: challenges[1].id, correct: false, text: "Applying is a higher-order skill than analyzing." },
+              { challengeId: challenges[1].id, correct: false, text: "They are essentially the same skill." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: false, text: "Understanding" },
+              { challengeId: challenges[2].id, correct: true, text: "Analyzing" },
+              { challengeId: challenges[2].id, correct: false, text: "Evaluating" },
+            ]);
+
+            // Lesson 2
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "When a student is asked to judge the credibility of a source, they are operating at which level?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "Which of the following is an example of an 'Evaluating' activity?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "What distinguishes 'Analyzing' from 'Evaluating'?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Applying" },
+              { challengeId: challenges[0].id, correct: false, text: "Analyzing" },
+              { challengeId: challenges[0].id, correct: true, text: "Evaluating" },
+            ]);
+             await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Critiquing a peer's essay" },
+              { challengeId: challenges[1].id, correct: false, text: "Summarizing the main points of an article" },
+              { challengeId: challenges[1].id, correct: false, text: "Creating a new story" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Analyzing involves breaking down information, while evaluating involves making judgments." },
+              { challengeId: challenges[2].id, correct: false, text: "Evaluating is a lower-order skill than analyzing." },
+              { challengeId: challenges[2].id, correct: false, text: "They are essentially the same skill." },
+            ]);
+
+            // Lesson 3
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "Which of the following assignments requires students to use the \"Creating\" level of Bloom's Taxonomy?",
+                order: 1,
+              },
+               {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "What is the highest level of cognitive skill in the revised Bloom's Taxonomy?",
+                order: 2,
+              },
+               {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "Which verb is most associated with the 'Creating' level?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Answering multiple-choice questions about a historical event." },
+              { challengeId: challenges[0].id, correct: true, text: "Designing a new product to solve a real-world problem." },
+              { challengeId: challenges[0].id, correct: false, text: "Following a set of instructions to build a model." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Creating" },
+              { challengeId: challenges[1].id, correct: false, text: "Evaluating" },
+              { challengeId: challenges[1].id, correct: false, text: "Analyzing" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Design" },
+              { challengeId: challenges[2].id, correct: false, text: "Critique" },
+              { challengeId: challenges[2].id, correct: false, text: "List" },
+            ]);
+          }
+
+          // Unit 4
+          if (unit.order === 4) {
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Writing Learning Objectives", order: 1 },
+              { unitId: unit.id, title: "Designing Assessments", order: 2 },
+              { unitId: unit.id, title: "Differentiated Instruction", order: 3 },
+            ]).returning();
+
+            // Lesson 1
+            let challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "Which of the following is a well-written learning objective at the \"Applying\" level?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "Why is it important to use action verbs when writing learning objectives?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[0].id,
+                type: "SELECT",
+                question: "A learning objective should be:",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "Students will be able to list the steps of the scientific method." },
+              { challengeId: challenges[0].id, correct: true, text: "Students will be able to use the scientific method to conduct a simple experiment." },
+              { challengeId: challenges[0].id, correct: false, text: "Students will appreciate the scientific method." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "They describe observable and measurable behaviors." },
+              { challengeId: challenges[1].id, correct: false, text: "They make the objective sound more academic." },
+              { challengeId: challenges[1].id, correct: false, text: "They are easier for students to understand." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: false, text: "Vague and open-ended." },
+              { challengeId: challenges[2].id, correct: true, text: "Specific, measurable, achievable, relevant, and time-bound (SMART)." },
+              { challengeId: challenges[2].id, correct: false, text: "Focused on teacher activities rather than student learning." },
+            ]);
+
+            // Lesson 2
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "A teacher wants to create an assessment that targets higher-order thinking skills. Which of the following would be most appropriate?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "What is the purpose of formative assessment?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[1].id,
+                type: "SELECT",
+                question: "What is a key principle of good assessment design?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "A true/false quiz." },
+              { challengeId: challenges[0].id, correct: true, text: "A project that requires students to design and build a solution to a problem." },
+              { challengeId: challenges[0].id, correct: false, text: "A matching exercise with vocabulary words and definitions." },
+            ]);
+             await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "To monitor student learning and provide feedback." },
+              { challengeId: challenges[1].id, correct: false, text: "To grade students at the end of a unit." },
+              { challengeId: challenges[1].id, correct: false, text: "To compare students to each other." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: false, text: "It should be as difficult as possible." },
+              { challengeId: challenges[2].id, correct: true, text: "It should align with the learning objectives." },
+              { challengeId: challenges[2].id, correct: false, text: "It should be a surprise to the students." },
+            ]);
+
+            // Lesson 3
+            challenges = await db.insert(schema.challenges).values([
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "How can Bloom's Taxonomy be used to support differentiated instruction?",
+                order: 1,
+              },
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "Which of the following is an example of differentiating instruction based on student interest?",
+                order: 2,
+              },
+              {
+                lessonId: lessons[2].id,
+                type: "SELECT",
+                question: "What is the main goal of differentiated instruction?",
+                order: 3,
+              },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: false, text: "By giving all students the same task, regardless of their ability." },
+              { challengeId: challenges[0].id, correct: true, text: "By creating a variety of tasks at different cognitive levels to meet the needs of all learners." },
+              { challengeId: challenges[0].id, correct: false, text: "By focusing only on lower-order thinking skills." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Allowing students to choose their own research topic." },
+              { challengeId: challenges[1].id, correct: false, text: "Giving all students the same homework assignment." },
+              { challengeId: challenges[1].id, correct: false, text: "Using the same teaching method for all students." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: false, text: "To make sure all students get the same grade." },
+              { challengeId: challenges[2].id, correct: true, text: "To meet the diverse needs of all learners." },
+              { challengeId: challenges[2].id, correct: false, text: "To save time on lesson planning." },
+            ]);
           }
         }
       }
