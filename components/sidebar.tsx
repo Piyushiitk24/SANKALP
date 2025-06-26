@@ -48,7 +48,19 @@ export const Sidebar = ({ className }: SidebarProps) => {
           <UserButton
             afterSignOutUrl="/"
             appearance={{
-              elements: { userButtonPopoverCard: { pointerEvents: "initial" } },
+              elements: { 
+                userButtonPopoverCard: { 
+                  pointerEvents: "initial",
+                  boxShadow: "0 10px 15px -3px rgba(162, 89, 255, 0.1), 0 4px 6px -2px rgba(162, 89, 255, 0.05)",
+                },
+                userButtonAvatarBox: {
+                  width: "32px",
+                  height: "32px",
+                },
+              },
+              variables: {
+                colorPrimary: "#a259ff",
+              },
             }}
           />
         </ClerkLoaded>

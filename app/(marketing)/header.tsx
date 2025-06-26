@@ -47,7 +47,19 @@ export const Header = () => {
             </ClerkLoading>
             <ClerkLoaded>
               <SignedIn>
-                <UserButton afterSignOutUrl="/" />
+                <UserButton 
+                  afterSignOutUrl="/" 
+                  appearance={{
+                    variables: {
+                      colorPrimary: "#a259ff",
+                    },
+                    elements: {
+                      userButtonPopoverCard: {
+                        boxShadow: "0 10px 15px -3px rgba(162, 89, 255, 0.1), 0 4px 6px -2px rgba(162, 89, 255, 0.05)",
+                      },
+                    },
+                  }}
+                />
               </SignedIn>
 
               <SignedOut>

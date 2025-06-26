@@ -13,7 +13,7 @@ import "./globals.css";
 const font = Nunito({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
-  themeColor: "#22C55E",
+  themeColor: "#a259ff",
 };
 
 export const metadata: Metadata = siteConfig;
@@ -27,10 +27,48 @@ export default function RootLayout({
     <ClerkProvider
       appearance={{
         layout: {
-          logoImageUrl: "/favicon.ico",
+          logoImageUrl: "/mascotnew.svg",
+          logoPlacement: "inside",
         },
         variables: {
-          colorPrimary: "#22C55E",
+          colorPrimary: "#a259ff",
+          colorBackground: "#ffffff",
+          colorInputBackground: "#ffffff",
+          colorInputText: "#000000",
+          colorText: "#000000",
+          colorTextSecondary: "#6b7280",
+          colorSuccess: "#a259ff",
+          colorWarning: "#f59e0b",
+          colorDanger: "#ef4444",
+          borderRadius: "0.75rem",
+        },
+        elements: {
+          formButtonPrimary: {
+            backgroundColor: "#a259ff",
+            borderColor: "#a259ff",
+            "&:hover": {
+              backgroundColor: "#9333ea",
+            },
+            "&:focus": {
+              backgroundColor: "#9333ea",
+              boxShadow: "0 0 0 2px #a259ff40",
+            },
+          },
+          socialButtonsBlockButton: {
+            borderColor: "#e5e7eb",
+            "&:hover": {
+              backgroundColor: "#f9fafb",
+            },
+          },
+          card: {
+            boxShadow: "0 10px 15px -3px rgba(162, 89, 255, 0.1), 0 4px 6px -2px rgba(162, 89, 255, 0.05)",
+          },
+          headerTitle: {
+            color: "#1f2937",
+          },
+          headerSubtitle: {
+            color: "#6b7280",
+          },
         },
       }}
     >
