@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import { refillHearts } from "@/actions/user-progress";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +16,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useHeartsModal } from "@/store/use-hearts-modal";
-import { refillHearts } from "@/actions/user-progress";
 
 export const HeartsModal = () => {
   const router = useRouter();
@@ -37,8 +37,8 @@ export const HeartsModal = () => {
     }
   };
 
-  const handleRefill = async () => {
-    await refillHearts();
+  const handleRefill = () => {
+    void refillHearts();
     setShowVideo(false);
     close();
   };

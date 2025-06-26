@@ -286,7 +286,7 @@ Useful resources and dependencies that are used in SANKALP<sup>®</sup>.
 - [dotenv](https://www.npmjs.com/package/dotenv): ^16.4.5
 - [drizzle-orm](https://www.npmjs.com/package/drizzle-orm): ^0.30.4
 - [lucide-react](https://www.npmjs.com/package/lucide-react): ^0.359.0
-- [next](https://www.npmjs.com/package/next): 14.1.4
+- [next](https://www.npmjs.com/package/next): 14.2.21
 - [next-themes](https://www.npmjs.com/package/next-themes): ^0.3.0
 - [ra-data-simple-rest](https://www.npmjs.com/package/ra-data-simple-rest): ^4.16.12
 - [react](https://www.npmjs.com/package/react): ^18

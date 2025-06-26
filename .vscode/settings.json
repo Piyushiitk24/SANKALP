@@ -1,4 +1,9 @@
 {
   "css.customData": [".vscode/css_custom_data.json"],
-  "files.associations": { "*.css": "tailwindcss" }
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "github.copilot.chat.agent.currentEditorContext.enabled": true,
+  "github.copilot.chat.summarizeAgentConversationHistory.enabled": true,
+  "chat.agent.enabled": true
 }
