@@ -57,11 +57,16 @@ export const Quiz = ({
 
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  const { open: openHeartsModal } = useHeartsModal();
+  const { open: openHeartsModal, setOnHeartsRefilled } = useHeartsModal();
   const { open: openPracticeModal } = usePracticeModal();
 
   useMount(() => {
     if (initialPercentage === 100) openPracticeModal();
+    
+    // Set up callback for when hearts are refilled from the modal
+    setOnHeartsRefilled(() => {
+      setHearts(MAX_HEARTS);
+    });
   });
 
   const [lessonId] = useState(initialLessonId);

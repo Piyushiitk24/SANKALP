@@ -20,7 +20,7 @@ import { useHeartsModal } from "@/store/use-hearts-modal";
 export const HeartsModal = () => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  const { isOpen, close } = useHeartsModal();
+  const { isOpen, close, onHeartsRefilled } = useHeartsModal();
   const [showVideo, setShowVideo] = useState(false);
   const [videoWatched, setVideoWatched] = useState(false);
   const [isRefilling, setIsRefilling] = useState(false);
@@ -43,6 +43,12 @@ export const HeartsModal = () => {
       setIsRefilling(true);
       await refillHeartsFromVideo();
       setShowVideo(false);
+      
+      // Call the callback to update hearts in the quiz component
+      if (onHeartsRefilled) {
+        onHeartsRefilled();
+      }
+      
       close();
       // Refresh the page data to update hearts display
       router.refresh();
