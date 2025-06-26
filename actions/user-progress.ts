@@ -14,6 +14,20 @@ import {
 } from "@/db/queries";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
 
+// New action for guest users to select a course
+export const selectCourseAsGuest = async (courseId: number) => {
+  // This will be handled on the client side using guest user utilities
+  // Just validate that the course exists
+  const course = await getCourseById(courseId);
+  
+  if (!course) throw new Error("Course not found.");
+  
+  if (!course.units.length || !course.units[0].lessons.length)
+    throw new Error("Course is empty.");
+    
+  return { success: true, courseId };
+};
+
 export const upsertUserProgress = async (courseId: number) => {
   const { userId } = auth();
   const user = await currentUser();
@@ -58,10 +72,26 @@ export const upsertUserProgress = async (courseId: number) => {
 
 export const reduceHearts = async (challengeId: number) => {
   const { userId } = auth();
+  const currentUserProgress = await getUserProgress();
 
+  if (!currentUserProgress) throw new Error("User progress not found.");
+
+  // Handle guest users
+  if (!userId && "isGuest" in currentUserProgress) {
+    // For guest users, hearts reduction is handled client-side
+    // We can't persist this in the database, so return client state
+    const newHearts = Math.max(0, currentUserProgress.hearts - 1);
+    
+    if (newHearts === 0) {
+      return { error: "hearts", hearts: newHearts };
+    }
+    
+    return { hearts: newHearts };
+  }
+
+  // Handle authenticated users
   if (!userId) throw new Error("Unauthorized.");
 
-  const currentUserProgress = await getUserProgress();
   const userSubscription = await getUserSubscription();
 
   const challenge = await db.query.challenges.findFirst({
@@ -118,11 +148,24 @@ export const reduceHearts = async (challengeId: number) => {
 };
 
 export const refillHearts = async () => {
+  const { userId } = auth();
   const currentUserProgress = await getUserProgress();
 
   if (!currentUserProgress) throw new Error("User progress not found.");
   if (currentUserProgress.hearts === MAX_HEARTS)
     throw new Error("Hearts are already full.");
+
+  // Handle guest users
+  if (!userId && "isGuest" in currentUserProgress) {
+    if (currentUserProgress.points < POINTS_TO_REFILL)
+      throw new Error("Not enough points.");
+    
+    // For guest users, this will be handled client-side
+    return { success: true };
+  }
+
+  // Handle authenticated users
+  if (!userId) throw new Error("Unauthorized.");
   if (currentUserProgress.points < POINTS_TO_REFILL)
     throw new Error("Not enough points.");
 
@@ -132,7 +175,7 @@ export const refillHearts = async () => {
       hearts: MAX_HEARTS,
       points: currentUserProgress.points - POINTS_TO_REFILL,
     })
-    .where(eq(userProgress.userId, currentUserProgress.userId));
+    .where(eq(userProgress.userId, userId));
 
   revalidatePath("/shop");
   revalidatePath("/learn");
@@ -141,18 +184,28 @@ export const refillHearts = async () => {
 };
 
 export const refillHeartsFromVideo = async () => {
+  const { userId } = auth();
   const currentUserProgress = await getUserProgress();
 
   if (!currentUserProgress) throw new Error("User progress not found.");
   if (currentUserProgress.hearts === MAX_HEARTS)
     throw new Error("Hearts are already full.");
 
+  // Handle guest users
+  if (!userId && "isGuest" in currentUserProgress) {
+    // For guest users, this will be handled client-side
+    return { success: true };
+  }
+
+  // Handle authenticated users
+  if (!userId) throw new Error("Unauthorized.");
+
   await db
     .update(userProgress)
     .set({
       hearts: MAX_HEARTS,
     })
-    .where(eq(userProgress.userId, currentUserProgress.userId));
+    .where(eq(userProgress.userId, userId));
 
   revalidatePath("/shop");
   revalidatePath("/learn");

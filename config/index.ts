@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const siteConfig: Metadata = {
-  metadataBase: new URL("https://sankalp-piyushiitk24.vercel.app"),
-  title: "SANKALP",
+  metadataBase: new URL("https://sankalp-flax.vercel.app"),
+  title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
   description:
     "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
   keywords: [
@@ -10,8 +10,8 @@ export const siteConfig: Metadata = {
     "nextjs",
     "vercel",
     "react",
-    "Gamification_Quiz",
-    "learn-language",
+    "SANKALP",
+    "language-learning",
     "shadcn",
     "shadcn-ui",
     "radix-ui",
@@ -49,16 +49,16 @@ export const siteConfig: Metadata = {
     apple: "/mascotnew.svg",
   },
   openGraph: {
-    title: "SANKALP",
+    title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
     description: "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
-    url: "https://sankalp-piyushiitk24.vercel.app",
-    siteName: "SANKALP",
+    url: "https://sankalp-flax.vercel.app",
+    siteName: "SANKALP®",
     images: [
       {
         url: "/heronew.png",
         width: 1200,
         height: 630,
-        alt: "SANKALP - Interactive Language Learning Platform",
+        alt: "SANKALP® - Interactive Language Learning Platform",
       },
     ],
     locale: "en_US",
@@ -66,7 +66,7 @@ export const siteConfig: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SANKALP",
+    title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
     description: "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
     creator: "@piyushiitk24",
     images: ["/heronew.png"],

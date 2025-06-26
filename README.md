@@ -1,6 +1,8 @@
 <a name="readme-top"></a>
 
-# SANKALP<sup>®</sup> - Interactive platform for language learning.
+# SANKALP<sup>®</sup> - Study of Advanced Novel Knowledge And Learning Practices
+
+**Interactive platform for language learning with lessons, quizzes, and progress tracking.**
 
 ![SANKALP<sup>®</sup> - Interactive platform for language learning.](/.github/images/img_main.png "SANKALP<sup>®</sup> - Interactive platform for language learning.")
 
@@ -11,7 +13,53 @@
 [![Github commits](https://flat.badgen.net/github/commits/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/commits "Github commits")
 [![GitHub issues](https://flat.badgen.net/github/issues/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/issues "GitHub issues")
 [![GitHub pull requests](https://flat.badgen.net/github/prs/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/pulls "GitHub pull requests")
-[![Vercel status](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sankalp-sigma.vercel.app/ "Vercel status")
+[![Vercel status](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sankalp-flax.vercel.app/ "Vercel status")
+
+---
+
+## 🌟 **Latest Updates & Features**
+
+### **🎨 Neon Purple Theme**
+- **Complete UI Transformation**: Replaced all green elements with neon purple (#a259ff)
+- **Glow Effects**: Added stunning neon purple glow effects to buttons and interactive elements
+- **Consistent Theming**: Purple theme applied across all components, modals, and progress indicators
+
+### **🤖 New Mascot Design**
+- **Updated Mascot**: Transitioned from `mascot.svg` to `mascotnew.svg` throughout the application
+- **Purple-Themed Character**: Mascot now matches the new neon purple brand identity
+- **Consistent Usage**: All references updated across UI components and authentication flows
+
+### **👤 Guest User Experience**
+- **Continue as Guest**: Users can now explore the platform without creating an account
+- **Full Feature Access**: Guest users have access to lessons, quizzes, hearts system, and progress tracking
+- **Local Storage**: Guest progress is saved locally for session persistence
+- **Easy Upgrade Path**: Clear prompts for guests to create accounts for permanent progress saving
+
+### **💜 Enhanced Hearts System**
+- **Instant Refill**: Hearts now refill immediately after watching video ads
+- **Improved Modal**: Better UI feedback and loading states during heart refill
+- **Real-time Sync**: Fixed synchronization between server and client heart counts
+- **Guest Compatible**: Hearts system works seamlessly for both authenticated and guest users
+
+### **🏛️ Professional Branding**
+- **Registered Trademark**: Added ® symbol to SANKALP branding
+- **Full Form Display**: "Study of Advanced Novel Knowledge And Learning Practices" shown as subtitle
+- **Consistent Branding**: Updated across all components, metadata, and documentation
+- **SEO Optimization**: Enhanced titles and descriptions for better search visibility
+
+### **🔐 Enhanced Authentication**
+- **Clerk Integration**: Beautiful purple-themed authentication modals
+- **Custom Theming**: Clerk components styled to match neon purple brand
+- **Guest Options**: Authentication flows include guest user alternatives
+- **Improved UX**: Seamless login/signup experience with consistent styling
+
+### **🚀 Technical Improvements**
+- **Build Optimization**: Zero lint errors and successful builds
+- **Type Safety**: Complete TypeScript coverage for all new features
+- **Performance**: Optimized database queries for guest and authenticated users
+- **Mobile Responsive**: All new features work seamlessly across devices
+
+---
 
 <!-- Table of Contents -->
 <details>
@@ -22,10 +70,12 @@
 
 </summary>
 
+- [Latest Updates & Features](#-latest-updates--features)
 - [Folder Structure](#bangbang-folder-structure)
 - [Getting Started](#toolbox-getting-started)
 - [Screenshots](#camera-screenshots)
 - [Tech Stack](#gear-tech-stack)
+- [Core Features](#sparkles-core-features)
 - [Stats](#wrench-stats)
 - [Contribute](#raised_hands-contribute)
 - [Acknowledgements](#gem-acknowledgements)
@@ -35,7 +85,6 @@
 - [Deploy on Vercel](#page_with_curl-deploy-on-vercel)
 - [Give A Star](#star-give-a-star)
 - [Star History](#star2-star-history)
-- [Give A Star](#star-give-a-star)
 
 </details>
 
@@ -257,9 +306,22 @@ Once the script completes, check your database to ensure that the challenges dat
 
 [![React JS](https://skillicons.dev/icons?i=react "React JS")](https://react.dev/ "React JS") [![Next JS](https://skillicons.dev/icons?i=next "Next JS")](https://nextjs.org/ "Next JS") [![Typescript](https://skillicons.dev/icons?i=ts "Typescript")](https://www.typescriptlang.org/ "Typescript") [![Tailwind CSS](https://skillicons.dev/icons?i=tailwind "Tailwind CSS")](https://tailwindcss.com/ "Tailwind CSS") [![Vercel](https://skillicons.dev/icons?i=vercel "Vercel")](https://vercel.app/ "Vercel") [![Postgresql](https://skillicons.dev/icons?i=postgres "Postgresql")](https://www.postgresql.org/ "Postgresql")
 
+## :sparkles: Core Features
+
+- **🌍 Multi-Language Support**: Learn Spanish, French, Italian, Japanese, Croatian and more
+- **🎯 Interactive Lessons**: Engaging lessons with various challenge types
+- **💜 Hearts System**: Gamified lives system with video ads for refills
+- **🏆 Progress Tracking**: Visual progress bars and streak counters
+- **🎁 Shop System**: Purchase hearts and other items with points
+- **🔊 Audio Support**: Native speaker pronunciations and audio feedback
+- **📱 Responsive Design**: Works seamlessly on desktop and mobile devices
+- **👤 Guest Mode**: Try the platform without creating an account
+- **🎨 Modern UI**: Beautiful neon purple theme with glow effects
+- **⚡ Fast Performance**: Built with Next.js 14 for optimal speed
+
 ## :wrench: Stats
 
-[![Stats for SANKALP](/.github/images/stats.svg "Stats for SANKALP")](https://pagespeed.web.dev/analysis?url=https://sankalp-sigma.vercel.app/ "Stats for SANKALP")
+[![Stats for SANKALP](/.github/images/stats.svg "Stats for SANKALP")](https://pagespeed.web.dev/analysis?url=https://sankalp-flax.vercel.app/ "Stats for SANKALP")
 
 ## :raised_hands: Contribute
 

@@ -1,4 +1,4 @@
-# Code of Conduct - Gamification_Quiz
+# Code of Conduct - SANKALP®
 
 ## Our Pledge
 

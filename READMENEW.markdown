@@ -1,26 +1,82 @@
-# Gamification_Quiz - Interactive platform for language learning.
+<a name="readme-top"></a>
 
-![Gamification_Quiz - Interactive platform for language learning.](/.github/images/img_main.png "Gamification_Quiz - Interactive platform for language learning.")
+# SANKALP<sup>®</sup> - Study of Advanced Novel Knowledge And Learning Practices
+
+**Interactive platform for language learning with lessons, quizzes, and progress tracking.**
+
+![SANKALP<sup>®</sup> - Interactive platform for language learning.](/.github/images/img_ma         - In the project's dashboard, find the **Connection String** (looks like `postgresql://user:password@host:port/sankalp?sslmode=require`).    - Sign in, create a new project, and name the databas   - You should see the SANKALP® app's homepage! `sankalp`.
+       - In the project's dashboard, find the **Connection String** (looks like `postgresql://user:password@host:port/sankalp?sslmode=require`)..png "SANKALP<sup>®</sup> - Interactive platform for language learning.")
 
 [![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24 "Ask Me Anything!")
-[![GitHub license](https://flat.badgen.net/github/license/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/blob/main/LICENSE "GitHub license")
-[![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/commits/main "Maintenance")
-[![GitHub branches](https://flat.badgen.net/github/branches/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/branches "GitHub branches")
-[![Github commits](https://flat.badgen.net/github/commits/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/commits "Github commits")
-[![GitHub issues](https://flat.badgen.net/github/issues/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/issues "GitHub issues")
-[![GitHub pull requests](https://flat.badgen.net/github/prs/Piyushiitk24/Gamification_Quiz?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/Gamification_Quiz/pulls "GitHub pull requests")
-[![Vercel status](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://gamification-quiz.vercel.app/ "Vercel status")
+[![GitHub license](https://flat.badgen.net/github/license/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/blob/main/LICENSE "GitHub license")
+[![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/commits/main "Maintenance")
+[![GitHub branches](https://flat.badgen.net/github/branches/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/branches "GitHub branches")
+[![Github commits](https://flat.badgen.net/github/commits/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/commits "Github commits")
+[![GitHub issues](https://flat.badgen.net/github/issues/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/issues "GitHub issues")
+[![GitHub pull requests](https://flat.badgen.net/github/prs/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/pulls "GitHub pull requests")
+[![Vercel status](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sankalp-flax.vercel.app/ "Vercel status")
+
+---
+
+## 🌟 **Latest Updates & Features**
+
+### **🎨 Neon Purple Theme**
+- **Complete UI Transformation**: Replaced all green elements with neon purple (#a259ff)
+- **Glow Effects**: Added stunning neon purple glow effects to buttons and interactive elements
+- **Consistent Theming**: Purple theme applied across all components, modals, and progress indicators
+
+### **🤖 New Mascot Design**
+- **Updated Mascot**: Transitioned from `mascot.svg` to `mascotnew.svg` throughout the application
+- **Purple-Themed Character**: Mascot now matches the new neon purple brand identity
+- **Consistent Usage**: All references updated across UI components and authentication flows
+
+### **👤 Guest User Experience**
+- **Continue as Guest**: Users can now explore the platform without creating an account
+- **Full Feature Access**: Guest users have access to lessons, quizzes, hearts system, and progress tracking
+- **Local Storage**: Guest progress is saved locally for session persistence
+- **Easy Upgrade Path**: Clear prompts for guests to create accounts for permanent progress saving
+
+### **💜 Enhanced Hearts System**
+- **Instant Refill**: Hearts now refill immediately after watching video ads
+- **Improved Modal**: Better UI feedback and loading states during heart refill
+- **Real-time Sync**: Fixed synchronization between server and client heart counts
+- **Guest Compatible**: Hearts system works seamlessly for both authenticated and guest users
+
+### **🏛️ Professional Branding**
+- **Registered Trademark**: Added ® symbol to SANKALP branding
+- **Full Form Display**: "Study of Advanced Novel Knowledge And Learning Practices" shown as subtitle
+- **Consistent Branding**: Updated across all components, metadata, and documentation
+- **SEO Optimization**: Enhanced titles and descriptions for better search visibility
+
+### **🔐 Enhanced Authentication**
+- **Clerk Integration**: Beautiful purple-themed authentication modals
+- **Custom Theming**: Clerk components styled to match neon purple brand
+- **Guest Options**: Authentication flows include guest user alternatives
+- **Improved UX**: Seamless login/signup experience with consistent styling
+
+### **🚀 Technical Improvements**
+- **Build Optimization**: Zero lint errors and successful builds
+- **Type Safety**: Complete TypeScript coverage for all new features
+- **Performance**: Optimized database queries for guest and authenticated users
+- **Mobile Responsive**: All new features work seamlessly across devices
+
+---
 
 <!-- Table of Contents -->
 <details>
+
 <summary>
+
 # :notebook_with_decorative_cover: Table of Contents
+
 </summary>
 
+- [Latest Updates & Features](#-latest-updates--features)
 - [Folder Structure](#bangbang-folder-structure)
 - [Getting Started](#toolbox-getting-started)
 - [Screenshots](#camera-screenshots)
 - [Tech Stack](#gear-tech-stack)
+- [Core Features](#sparkles-core-features)
 - [Stats](#wrench-stats)
 - [Contribute](#raised_hands-contribute)
 - [Acknowledgements](#gem-acknowledgements)
@@ -38,7 +94,7 @@
 Here is the folder structure of this app.
 
 ```bash
-Gamification_Quiz/
+sankalp/
   |- actions/
     |- challenge-progress.ts
     |- user-progress.ts
@@ -202,16 +258,16 @@ Follow these steps exactly to run the app. If you get stuck, check the “Troubl
      ```
    - Download the project:
      ```bash
-     git clone https://github.com/Piyushiitk24/Gamification_Quiz.git
+     git clone https://github.com/Piyushiitk24/SANKALP.git
      ```
    - Move into the project folder:
      ```bash
-     cd Gamification_Quiz
+     cd SANKALP
      ```
 
 2. **Set Up the `.env` File**:
    - The app needs a file called `.env` to store secret keys (like passwords for Clerk, Neon, and Stripe).
-   - In the `Gamification_Quiz` folder, create a file named `.env`. On Mac/Linux, you can use:
+   - In the `SANKALP` folder, create a file named `.env`. On Mac/Linux, you can use:
      ```bash
      touch .env
      ```
@@ -222,7 +278,7 @@ Follow these steps exactly to run the app. If you get stuck, check the “Troubl
      NEXT_TELEMETRY_DISABLED=1
      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
      CLERK_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-     DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/gamification_quiz?sslmode=require"
+     DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/sankalp?sslmode=require"
      STRIPE_API_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
      STRIPE_WEBHOOK_SECRET=whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
      NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -237,7 +293,7 @@ Follow these steps exactly to run the app. If you get stuck, check the “Troubl
        - Click **Users** in the dashboard, find your admin user (e.g., your account), and copy the user ID (starts with `user_`). Paste it into `CLERK_ADMIN_IDS`. If you have multiple admins, separate IDs with a comma and space (e.g., `user_xxx, user_yyy`).
      - **Neon Database URL**:
        - Go to [Neon Dashboard](https://console.neon.tech/).
-       - Sign in, create a new project, and name the database `gamification_quiz`.
+       - Sign in, create a new project, and name the database `sankalp`.
        - In the project’s dashboard, find the **Connection String** (looks like `postgresql://user:password@host:port/gamification_quiz?sslmode=require`).
        - Copy and paste it into `DATABASE_URL`, replacing `<user>`, `<password>`, `<host>`, and `<port>` with the values from Neon.
      - **Stripe Keys**:
@@ -245,11 +301,11 @@ Follow these steps exactly to run the app. If you get stuck, check the “Troubl
        - Sign in and click **Developers** > **API Keys**.
        - Copy the **Secret Key** (starts with `sk_test_`) and paste it into `STRIPE_API_SECRET_KEY`.
        - Go to **Developers** > **Webhooks**, click **Add endpoint**, and enter `http://localhost:3000/api/webhooks/stripe` as the URL. Copy the webhook secret (starts with `whsec_`) and paste it into `STRIPE_WEBHOOK_SECRET`.
-     - **App URL**: Keep `NEXT_PUBLIC_APP_URL=http://localhost:3000` for now. If you deploy the app later (e.g., to Vercel), change it to the deployed URL (e.g., `https://gamification-quiz.vercel.app`).
+     - **App URL**: Keep `NEXT_PUBLIC_APP_URL=http://localhost:3000` for now. If you deploy the app later (e.g., to Vercel), change it to the deployed URL (e.g., `https://sankalp-flax.vercel.app`).
    - Save the `.env` file. Don’t share it with anyone—it’s like a password!
 
 3. **Install the App’s Tools**:
-   - In the `Gamification_Quiz` folder, run:
+   - In the `SANKALP` folder, run:
      ```bash
      npm install --legacy-peer-deps
      ```
@@ -283,7 +339,7 @@ Follow these steps exactly to run the app. If you get stuck, check the “Troubl
      - Adds sample data (like example quizzes).
    - **Check It Worked**:
      - Go to [Neon Dashboard](https://console.neon.tech/).
-     - Look at your `gamification_quiz` database. You should see tables like `challenges`, `units`, and `lessons` with data in them.
+     - Look at your `sankalp` database. You should see tables like `challenges`, `units`, and `lessons` with data in them.
      - If you don’t see data, make sure your `DATABASE_URL` in `.env` is correct and try the command again.
 
 6. **Run the App**:
@@ -337,7 +393,7 @@ Follow these steps exactly to run the app. If you get stuck, check the “Troubl
 
 ## :wrench: Stats
 
-[![Stats for Gamification_Quiz](/.github/images/stats.svg "Stats for Gamification_Quiz")](https://pagespeed.web.dev/analysis?url=https://gamification-quiz.vercel.app/ "Stats for Gamification_Quiz")
+[![Stats for SANKALP](/.github/images/stats.svg "Stats for SANKALP")](https://pagespeed.web.dev/analysis?url=https://sankalp-flax.vercel.app/ "Stats for SANKALP")
 
 ## :raised_hands: Contribute
 
@@ -345,14 +401,12 @@ You might encounter bugs while using this app. You are welcome to contribute via
 
 ## :gem: Acknowledgements
 
-Useful resources and dependencies used in Lingo:
+Useful resources and dependencies that are used in SANKALP<sup>®</sup>.
 
-- Kenney Assets: [kenney.nl](https://kenney.nl/)
-- Freesound: [freesound.org](https://freesound.org/)
-- Elevenlabs AI: [elevenlabs.io](https://elevenlabs.io/)
-- Flagpack: [flagpack.xyz](https://flagpack.xyz/)
-
-Dependencies:
+- Special Thanks to Kenney Assets: https://kenney.nl/
+- Freesound: https://freesound.org/
+- Elevenlabs AI: https://elevenlabs.io/
+- Flagpack: https://flagpack.xyz/
 - [@clerk/nextjs](https://www.npmjs.com/package/@clerk/nextjs): ^4.29.9
 - [@neondatabase/serverless](https://www.npmjs.com/package/@neondatabase/serverless): ^0.9.0
 - [@radix-ui/react-avatar](https://www.npmjs.com/package/@radix-ui/react-avatar): ^1.0.4
@@ -365,7 +419,7 @@ Dependencies:
 - [dotenv](https://www.npmjs.com/package/dotenv): ^16.4.5
 - [drizzle-orm](https://www.npmjs.com/package/drizzle-orm): ^0.30.4
 - [lucide-react](https://www.npmjs.com/package/lucide-react): ^0.359.0
-- [next](https://www.npmjs.com/package/next): ^14.2.21
+- [next](https://www.npmjs.com/package/next): 14.2.21
 - [next-themes](https://www.npmjs.com/package/next-themes): ^0.3.0
 - [ra-data-simple-rest](https://www.npmjs.com/package/ra-data-simple-rest): ^4.16.12
 - [react](https://www.npmjs.com/package/react): ^18
@@ -387,38 +441,37 @@ Dependencies:
 ## :rocket: Follow Me
 
 [![Follow Me](https://img.shields.io/github/followers/Piyushiitk24?style=social&label=Follow&maxAge=2592000)](https://github.com/Piyushiitk24 "Follow Me")
-[![Tweet about this project](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fpiyushiitk24)](https://twitter.com/intent/tweet?text=Check+out+this+amazing+app:&url=https%3A%2F%2Fgithub.com%2FPiyushiitk24%2FGamification_Quiz "Tweet about this project")
-[![Subscribe to my YouTube Channel](https://img.shields.io/youtube/channel/subscribers/UCNAz_hUVBG2ZUN8TVm0bmYw)](https://www.youtube.com/@piyushiitk24/?sub_confirmation=1 "Subscribe to my YouTube Channel")
+[![Tweet about this project](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTechnicalShubam)](https://twitter.com/intent/tweet?text=Check+out+this+amazing+app:&url=https%3A%2F%2Fgithub.com%2FPiyushiitk24%2FSANKALP "Tweet about this project")
+[![Subscribe to my YouTube Channel](https://img.shields.io/youtube/channel/subscribers/UCNAz_hUVBG2ZUN8TVm0bmYw)](https://www.youtube.com/@OPGAMER./?sub_confirmation=1 "Subscribe to my YouTube Channel")
 
 ## :books: Learn More
 
-To learn more about Next.js, check out:
-- [Next.js Documentation](https://nextjs.org/docs) - Features and API.
-- [Learn Next.js](https://nextjs.org/learn) - Interactive tutorial.
-- [Next.js GitHub](https://github.com/vercel/next.js/) - Feedback and contributions welcome!
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## :page_with_curl: Deploy on Vercel
 
-Deploy easily with the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme). See [Next.js deployment documentation](https://nextjs.org/docs/deployment) for details.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## :star: Give A Star
 
-Star this repository to share it with others!
+You can also give this repository a star to show more people and they can use this repository.
 
 ## :star2: Star History
 
-<a href="https://star-history.com/#Piyushiitk24/Gamification_Quiz&Timeline">
+<a href="https://star-history.com/#Piyushiitk24/SANKALP&Timeline">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/Gamification_Quiz&type=Timeline&theme=dark" />
-  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/Gamification_Quiz&type=Timeline" />
-  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Piyushiitk24/Gamification_Quiz&type=Timeline" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/SANKALP&type=Timeline&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Piyushiitk24/SANKALP&type=Timeline" />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Piyushiitk24/SANKALP&type=Timeline" />
 </picture>
 </a>
-
----
-**Author**: Piyush Tiwari
-**Email**: [piyushiitk24@gmail.com](mailto:piyushiitk24@gmail.com)  
-**GitHub**: [Piyushiitk24](https://github.com/Piyushiitk24)
 
 <br />
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

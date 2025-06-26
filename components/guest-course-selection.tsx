@@ -1,0 +1,125 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
+import { selectCourseAsGuest } from "@/actions/user-progress";
+import { Button } from "@/components/ui/button";
+import { updateGuestUser } from "@/lib/guest-user";
+
+type Course = {
+  id: number;
+  title: string;
+  imageSrc: string;
+};
+
+export const GuestCourseSelection = () => {
+  const router = useRouter();
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Fetch courses - we'll need to make this work without authentication
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("/api/public/courses");
+        if (response.ok) {
+          const data = await response.json() as Course[];
+          setCourses(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch courses:", error);
+        toast.error("Failed to load courses");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    void fetchCourses();
+  }, []);
+
+  const handleCourseSelect = async (courseId: number) => {
+    try {
+      setSelectedCourse(courseId);
+
+      // Validate course on server
+      await selectCourseAsGuest(courseId);
+
+      // Update guest user locally
+      const updatedUser = updateGuestUser({ activeCourseId: courseId });
+      
+      if (updatedUser) {
+        toast.success("Course selected! Starting your learning journey...");
+        router.push("/learn");
+        router.refresh();
+      } else {
+        throw new Error("Failed to update guest user");
+      }
+    } catch (error) {
+      console.error("Failed to select course:", error);
+      toast.error("Failed to select course. Please try again.");
+      setSelectedCourse(null);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#a259ff]"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-full max-w-[912px] px-3 mx-auto">
+      <h1 className="text-2xl font-bold text-neutral-700 mb-6 text-center">
+        Choose a course to get started
+      </h1>
+      
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        {courses.map((course) => (
+          <div
+            key={course.id}
+            className="flex flex-col items-center justify-between p-3 pb-6 min-h-[217px] border-2 rounded-xl border-b-4 hover:bg-black/5 cursor-pointer active:border-b-2 transition"
+            onClick={() => void handleCourseSelect(course.id)}
+          >
+            <div className="min-[24px] flex items-center justify-center">
+              <Image
+                src={course.imageSrc}
+                alt={course.title}
+                height={70}
+                width={93.33}
+              />
+            </div>
+
+            <p className="text-neutral-700 text-center font-bold mt-3">
+              {course.title}
+            </p>
+
+            <Button
+              size="lg"
+              variant="secondary"
+              className="w-full"
+              disabled={selectedCourse === course.id}
+            >
+              {selectedCourse === course.id ? "Selecting..." : "Select"}
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 text-center">
+        <p className="text-sm text-muted-foreground mb-4">
+          You&apos;re browsing as a guest. Progress won&apos;t be saved permanently.
+        </p>
+        <Button variant="ghost" className="text-[#a259ff]" onClick={() => router.push("/")}>
+          ← Back to Sign Up
+        </Button>
+      </div>
+    </div>
+  );
+};

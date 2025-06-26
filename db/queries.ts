@@ -3,6 +3,8 @@ import { cache } from "react";
 import { auth } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 
+import { getGuestUser } from "@/lib/guest-user";
+
 import db from "./drizzle";
 import {
   challengeProgress,
@@ -24,7 +26,25 @@ export const getCourses = cache(async () => {
 export const getUserProgress = cache(async () => {
   const { userId } = auth();
 
-  if (!userId) return null;
+  // Handle guest users
+  if (!userId) {
+    if (typeof window !== "undefined") {
+      const guestUser = getGuestUser();
+      if (guestUser && guestUser.activeCourseId) {
+        // Fetch the active course details for guest user
+        const activeCourse = await db.query.courses.findFirst({
+          where: eq(courses.id, guestUser.activeCourseId),
+        });
+        
+        return {
+          ...guestUser,
+          activeCourse,
+        };
+      }
+      return guestUser;
+    }
+    return null;
+  }
 
   const data = await db.query.userProgress.findFirst({
     where: eq(userProgress.userId, userId),
@@ -38,12 +58,43 @@ export const getUserProgress = cache(async () => {
 
 export const getUnits = cache(async () => {
   const { userId } = auth();
-  const userProgress = await getUserProgress();
+  const userProgressData = await getUserProgress();
 
-  if (!userId || !userProgress?.activeCourseId) return [];
+  if (!userProgressData?.activeCourseId) return [];
 
+  // For guest users, we don't track challenge progress in the database
+  if (!userId) {
+    const data = await db.query.units.findMany({
+      where: eq(units.courseId, userProgressData.activeCourseId),
+      orderBy: (units, { asc }) => [asc(units.order)],
+      with: {
+        lessons: {
+          orderBy: (lessons, { asc }) => [asc(lessons.order)],
+          with: {
+            challenges: {
+              orderBy: (challenges, { asc }) => [asc(challenges.order)],
+            },
+          },
+        },
+      },
+    });
+
+    // For guest users, mark all lessons as incomplete
+    const normalizedData = data.map((unit) => {
+      const lessonsWithCompletedStatus = unit.lessons.map((lesson) => ({
+        ...lesson,
+        completed: false,
+      }));
+
+      return { ...unit, lessons: lessonsWithCompletedStatus };
+    });
+
+    return normalizedData;
+  }
+
+  // For authenticated users, include challenge progress
   const data = await db.query.units.findMany({
-    where: eq(units.courseId, userProgress.activeCourseId),
+    where: eq(units.courseId, userProgressData.activeCourseId),
     orderBy: (units, { asc }) => [asc(units.order)],
     with: {
       lessons: {
