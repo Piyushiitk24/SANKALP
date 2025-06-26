@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { updateGuestUser } from "@/lib/guest-user";
+import { createGuestUser, getGuestUser, setGuestUser, updateGuestUser } from "@/lib/guest-user";
 
 type Course = {
   id: number;
@@ -22,13 +22,26 @@ export const GuestCourseSelection = () => {
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
 
   useEffect(() => {
+    // Ensure guest user exists
+    let guestUser = getGuestUser();
+    if (!guestUser) {
+      guestUser = createGuestUser();
+      setGuestUser(guestUser);
+    }
+
     // Fetch courses - we'll need to make this work without authentication
     const fetchCourses = async () => {
       try {
         const response = await fetch("/api/public/courses");
         if (response.ok) {
-          const data = await response.json() as Course[];
-          setCourses(data);
+          const data = await response.json() as { success: boolean; courses: Course[] };
+          if (data.success) {
+            setCourses(data.courses);
+          } else {
+            throw new Error("Failed to fetch courses from API");
+          }
+        } else {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
       } catch (error) {
         console.error("Failed to fetch courses:", error);
@@ -54,14 +67,26 @@ export const GuestCourseSelection = () => {
 
       console.log("Course found locally:", selectedCourseData.title);
 
-      // Update guest user locally (no server validation needed for guest users)
-      const updatedUser = updateGuestUser({ activeCourseId: courseId });
+      // Ensure guest user exists before updating
+      let guestUser = getGuestUser();
+      if (!guestUser) {
+        guestUser = createGuestUser();
+        setGuestUser(guestUser);
+      }
+
+      // Update guest user with selected course
+      const updatedUser = updateGuestUser({ 
+        activeCourseId: courseId,
+        activeCourse: selectedCourseData
+      });
       console.log("Updated guest user:", updatedUser);
       
       if (updatedUser) {
         toast.success("Course selected! Starting your learning journey...");
-        router.push("/learn");
-        router.refresh();
+        // Add small delay to show the toast
+        setTimeout(() => {
+          router.push("/learn");
+        }, 1000);
       } else {
         throw new Error("Failed to update guest user");
       }

@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { createGuestUser, setGuestUser } from "@/lib/guest-user";
 
 interface GuestDisclaimerModalProps {
   isOpen: boolean;
@@ -26,6 +27,13 @@ export const GuestDisclaimerModal = ({
 
   const handleContinueAsGuest = () => {
     setIsLoading(true);
+    
+    // Create and store guest user
+    const guestUser = createGuestUser();
+    setGuestUser(guestUser);
+    
+    // Close modal and redirect to courses
+    onClose();
     router.push("/courses");
   };
 

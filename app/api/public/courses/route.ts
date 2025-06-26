@@ -5,9 +5,9 @@ import { getCourses } from "@/db/queries";
 export const GET = async () => {
   try {
     const courses = await getCourses();
-    return NextResponse.json(courses);
+    return NextResponse.json({ success: true, courses });
   } catch (error) {
     console.error("Failed to fetch courses:", error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to fetch courses" }, { status: 500 });
   }
 };

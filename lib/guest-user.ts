@@ -58,7 +58,12 @@ export const clearGuestUser = (): void => {
 
 export const updateGuestUser = (updates: Partial<Omit<GuestUser, 'id' | 'isGuest'>>): GuestUser | null => {
   const currentUser = getGuestUser();
-  if (!currentUser) return null;
+  if (!currentUser) {
+    // If no guest user exists, create one with the updates
+    const newUser = { ...createGuestUser(), ...updates };
+    setGuestUser(newUser);
+    return newUser;
+  }
   
   const updatedUser = { ...currentUser, ...updates };
   setGuestUser(updatedUser);
