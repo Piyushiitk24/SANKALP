@@ -2,10 +2,9 @@
 
 # SANKALP<sup>®</sup> - Study of Advanced Novel Knowledge And Learning Practices
 
-**Interactive platform for language learning with lessons, quizzes, and progress tracking.**
+**Interactive gamified learning platform with engaging lessons, quizzes, and progress tracking across multiple subjects.**
 
-![SANKALP<sup>®</sup> - Interactive platform for language learning.](/.github/images/img_ma         - In the project's dashboard, find the **Connection String** (looks like `postgresql://user:password@host:port/sankalp?sslmode=require`).    - Sign in, create a new project, and name the databas   - You should see the SANKALP® app's homepage! `sankalp`.
-       - In the project's dashboard, find the **Connection String** (looks like `postgresql://user:password@host:port/sankalp?sslmode=require`)..png "SANKALP<sup>®</sup> - Interactive platform for language learning.")
+![SANKALP<sup>®</sup> - Interactive gamified learning platform.](/.github/images/img_main.png "SANKALP<sup>®</sup> - Interactive gamified learning platform.")
 
 [![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24 "Ask Me Anything!")
 [![GitHub license](https://flat.badgen.net/github/license/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/blob/main/LICENSE "GitHub license")

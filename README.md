@@ -2,9 +2,9 @@
 
 # SANKALP<sup>®</sup> - Study of Advanced Novel Knowledge And Learning Practices
 
-**Interactive platform for language learning with lessons, quizzes, and progress tracking.**
+**Interactive gamified learning platform with engaging lessons, quizzes, and progress tracking across multiple subjects.**
 
-![SANKALP<sup>®</sup> - Interactive platform for language learning.](/.github/images/img_main.png "SANKALP<sup>®</sup> - Interactive platform for language learning.")
+![SANKALP<sup>®</sup> - Interactive gamified learning platform.](/.github/images/img_main.png "SANKALP<sup>®</sup> - Interactive gamified learning platform.")
 
 [![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24 "Ask Me Anything!")
 [![GitHub license](https://flat.badgen.net/github/license/Piyushiitk24/SANKALP?icon=github&color=black&scale=1.01)](https://github.com/Piyushiitk24/SANKALP/blob/main/LICENSE "GitHub license")
@@ -308,12 +308,12 @@ Once the script completes, check your database to ensure that the challenges dat
 
 ## :sparkles: Core Features
 
-- **🌍 Multi-Language Support**: Learn Spanish, French, Italian, Japanese, Croatian and more
-- **🎯 Interactive Lessons**: Engaging lessons with various challenge types
+- **🌍 Multi-Subject Learning**: Comprehensive lessons across various educational topics and subjects
+- **🎯 Interactive Lessons**: Engaging lessons with various challenge types and gamified elements
 - **💜 Hearts System**: Gamified lives system with video ads for refills
 - **🏆 Progress Tracking**: Visual progress bars and streak counters
 - **🎁 Shop System**: Purchase hearts and other items with points
-- **🔊 Audio Support**: Native speaker pronunciations and audio feedback
+- **🔊 Audio Support**: Immersive audio feedback and pronunciation guides
 - **📱 Responsive Design**: Works seamlessly on desktop and mobile devices
 - **👤 Guest Mode**: Try the platform without creating an account
 - **🎨 Modern UI**: Beautiful neon purple theme with glow effects

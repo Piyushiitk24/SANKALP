@@ -4,14 +4,19 @@ export const siteConfig: Metadata = {
   metadataBase: new URL("https://sankalp-flax.vercel.app"),
   title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
   description:
-    "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
+    "Interactive gamified learning platform with engaging lessons, quizzes, and progress tracking across multiple subjects.",
   keywords: [
     "reactjs",
     "nextjs",
     "vercel",
     "react",
     "SANKALP",
-    "language-learning",
+    "gamified-learning",
+    "interactive-education",
+    "quiz-platform",
+    "learning-management",
+    "educational-technology",
+    "progress-tracking",
     "shadcn",
     "shadcn-ui",
     "radix-ui",
@@ -53,7 +58,7 @@ export const siteConfig: Metadata = {
   },
   openGraph: {
     title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
-    description: "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
+    description: "Interactive gamified learning platform with engaging lessons, quizzes, and progress tracking across multiple subjects.",
     url: "https://sankalp-flax.vercel.app",
     siteName: "SANKALP®",
     images: [
@@ -61,7 +66,7 @@ export const siteConfig: Metadata = {
         url: "/heronew.png",
         width: 1200,
         height: 630,
-        alt: "SANKALP® - Interactive Language Learning Platform",
+        alt: "SANKALP® - Interactive Gamified Learning Platform",
       },
     ],
     locale: "en_US",
@@ -70,7 +75,7 @@ export const siteConfig: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
-    description: "Interactive platform for language learning with lessons, quizzes, and progress tracking.",
+    description: "Interactive gamified learning platform with engaging lessons, quizzes, and progress tracking across multiple subjects.",
     creator: "@piyushiitk24",
     images: ["/heronew.png"],
   },
