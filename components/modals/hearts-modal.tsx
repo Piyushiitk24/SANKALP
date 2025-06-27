@@ -19,22 +19,34 @@ import {
 import { useHeartsModal } from "@/store/use-hearts-modal";
 import { useGuestUser } from "@/hooks/use-guest-user";
 import { refillGuestHearts } from "@/lib/guest-progress";
-import { MAX_HEARTS } from "@/constants";
+import { MAX_HEARTS, DEMO_MODE } from "@/constants";
 
 export const HeartsModal = () => {
   const router = useRouter();
   const { user } = useUser();
   const { guestUser, updateUser } = useGuestUser();
   const [isClient, setIsClient] = useState(false);
-  const { isOpen, close, onHeartsRefilled } = useHeartsModal();
+  const { isOpen, close, onHeartsRefilled, showVideoOnOpen } = useHeartsModal();
   const [showVideo, setShowVideo] = useState(false);
   const [videoWatched, setVideoWatched] = useState(false);
   const [isRefilling, setIsRefilling] = useState(false);
 
   useEffect(() => setIsClient(true), []);
 
+  // Auto-show video when opened with video flag (for demo mode from shop)
+  useEffect(() => {
+    if (showVideoOnOpen && isOpen) {
+      setShowVideo(true);
+    }
+  }, [showVideoOnOpen, isOpen]);
+
   const onClick = () => {
     close();
+    // In demo mode, don't redirect to shop since paid options are hidden
+    if (DEMO_MODE.HIDE_PAID_HEART_OPTIONS) {
+      return;
+    }
+    
     if (user) {
       router.push("/shop");
     } else {
@@ -79,6 +91,8 @@ export const HeartsModal = () => {
       // You could add a toast notification here if needed
     } finally {
       setIsRefilling(false);
+      setShowVideo(false);
+      setVideoWatched(false);
     }
   };
 
@@ -106,23 +120,28 @@ export const HeartsModal = () => {
           </DialogTitle>
 
           <DialogDescription className="text-center text-base">
-            {user 
-              ? "Get Pro for unlimited hearts, purchase them in the store, or watch a short video to refill them for free."
-              : "Sign up to get Pro for unlimited hearts, or watch a short video to refill them for free."
+            {DEMO_MODE.HIDE_PAID_HEART_OPTIONS 
+              ? "Watch a short video to refill your hearts for free!"
+              : user 
+                ? "Get Pro for unlimited hearts, purchase them in the store, or watch a short video to refill them for free."
+                : "Sign up to get Pro for unlimited hearts, or watch a short video to refill them for free."
             }
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter className="mb-4">
           <div className="flex w-full flex-col gap-y-4">
-            <Button
-              variant="primary"
-              className="w-full"
-              size="lg"
-              onClick={onClick}
-            >
-              {user ? "Get unlimited hearts" : "Sign up for unlimited hearts"}
-            </Button>
+            {/* Hide paid option in demo mode */}
+            {!DEMO_MODE.HIDE_PAID_HEART_OPTIONS && (
+              <Button
+                variant="primary"
+                className="w-full"
+                size="lg"
+                onClick={onClick}
+              >
+                {user ? "Get unlimited hearts" : "Sign up for unlimited hearts"}
+              </Button>
+            )}
 
             <Button
               variant="primaryOutline"
