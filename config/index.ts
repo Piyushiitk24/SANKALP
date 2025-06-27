@@ -46,7 +46,7 @@ export const siteConfig: Metadata = {
   ] as Array<string>,
   authors: {
     name: "Piyush Tiwari",
-    url: "https://github.com/piyushiitk24",
+    url: "https://github.com/Piyushiitk24",
   },
   icons: {
     icon: [
@@ -76,12 +76,12 @@ export const siteConfig: Metadata = {
     card: "summary_large_image",
     title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
     description: "Interactive gamified learning platform with engaging lessons, quizzes, and progress tracking across multiple subjects.",
-    creator: "@piyushiitk24",
+    creator: "@Piyushiitk24",
     images: ["/heronew.png"],
   },
 } as const;
 
 export const links = {
-  sourceCode: "https://github.com/piyushiitk24/SANKALP",
+  sourceCode: "https://github.com/Piyushiitk24/SANKALP",
   email: "piyushiitk24@gmail.com",
 }
