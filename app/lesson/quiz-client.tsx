@@ -205,7 +205,7 @@ export const QuizClient = ({
         });
       } else if (guestUser) {
         // Guest user - handle client-side
-        const result = reduceGuestHearts(challenge.id);
+        const result = reduceGuestHearts();
         if (result.success) {
           void incorrectControls.play();
           setStatus("wrong");

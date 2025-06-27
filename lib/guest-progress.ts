@@ -1,5 +1,5 @@
 import { MAX_HEARTS } from "@/constants";
-import { GuestUser, getGuestUser, updateGuestUser } from "@/lib/guest-user";
+import { getGuestUser, updateGuestUser } from "@/lib/guest-user";
 
 export type GuestChallengeProgress = {
   challengeId: number;
@@ -94,14 +94,14 @@ export const updateGuestChallengeProgress = (
   };
 };
 
-export const reduceGuestHearts = (challengeId: number): { success: boolean; hearts: number; error?: string } => {
+export const reduceGuestHearts = (): { success: boolean; hearts: number; error?: string } => {
   const currentUser = getGuestUser();
   
   if (!currentUser) return { success: false, hearts: 0, error: "No guest user found" };
 
   const newHearts = Math.max(0, currentUser.hearts - 1);
   
-  const updatedUser = updateGuestUser({
+  updateGuestUser({
     hearts: newHearts,
   });
 

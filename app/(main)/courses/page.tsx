@@ -12,7 +12,7 @@ const CoursesPage = async () => {
   ]);
 
   return (
-    <CoursesClient courses={courses} userProgress={userProgress} />
+    <CoursesClient courses={courses} userProgress={userProgress || null} />
   );
 };
 

@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 import { getCourses } from "@/db/queries";
 import {
   getCourseProgress,

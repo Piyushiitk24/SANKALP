@@ -52,7 +52,7 @@ export const GuestDisclaimerModal = ({
             Continue as Guest?
           </DialogTitle>
           <DialogDescription>
-            You're about to continue without creating an account. Here's what this means:
+            You&apos;re about to continue without creating an account. Here&apos;s what this means:
           </DialogDescription>
         </DialogHeader>
 

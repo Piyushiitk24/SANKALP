@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { useRouter } from "next/navigation";
+
 import { useUser } from "@clerk/nextjs";
 
 import { FeedWrapper } from "@/components/feed-wrapper";
@@ -10,7 +12,7 @@ import { Quests } from "@/components/quests";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
 import { useGuestUser } from "@/hooks/use-guest-user";
-import { GuestUser } from "@/lib/guest-user";
+
 import { getGuestProgress } from "@/lib/guest-progress";
 
 import { Header } from "./header";

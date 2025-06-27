@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 
-import { useGuestUser } from "@/hooks/use-guest-user";
 import { GuestCourseSelection } from "@/components/guest-course-selection";
+import { useGuestUser } from "@/hooks/use-guest-user";
 
 import { List } from "./list";
 
@@ -14,9 +13,18 @@ type Course = {
   imageSrc: string;
 };
 
+type UserProgress = {
+  activeCourse: Course | null;
+  activeCourseId: number | null;
+  userName: string;
+  userImageSrc: string;
+  points: number;
+  hearts: number;
+};
+
 type Props = {
   courses: Course[];
-  userProgress: any;
+  userProgress: UserProgress | null;
 };
 
 export const CoursesClient = ({ courses, userProgress }: Props) => {
