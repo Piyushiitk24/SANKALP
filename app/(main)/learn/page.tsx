@@ -10,7 +10,6 @@ import {
 import { LearnPageClient } from "./page-client";
 
 const LearnPage = async () => {
-  console.log("[LEARN PAGE] Starting LearnPage server component");
   const userProgressData = getUserProgress();
   const courseProgressData = getCourseProgress();
   const lessonPercentageData = getLessonPercentage();

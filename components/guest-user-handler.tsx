@@ -38,7 +38,6 @@ export const GuestUserHandler = ({ children }: { children: React.ReactNode }) =>
     // Listen for guest user updates
     const handleGuestUserUpdate = () => {
       const updatedGuestUser = getGuestUser();
-      console.log("[GUEST HANDLER] Event received, updating guest user:", updatedGuestUser?.id, "activeCourse:", updatedGuestUser?.activeCourseId);
       setGuestUserState(updatedGuestUser);
     };
 
@@ -65,13 +64,11 @@ export const GuestUserHandler = ({ children }: { children: React.ReactNode }) =>
 
   // If guest user without active course, show course selection
   if (guestUser && !guestUser.activeCourseId) {
-    console.log("[GUEST HANDLER] Showing course selection for guest:", guestUser.id);
     return <GuestCourseSelection />;
   }
 
   // If guest user with active course, render children
   if (guestUser && guestUser.activeCourseId) {
-    console.log("[GUEST HANDLER] Rendering children for guest with course:", guestUser.activeCourseId);
     return <>{children}</>;
   }
 
