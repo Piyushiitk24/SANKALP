@@ -73,6 +73,10 @@ body,
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    --neon-purple: 270 100% 70%;
+    --neon-purple-glow: 270 100% 70%;
+    --neon-purple-shadow: 0 0 8px hsl(270, 100%, 70%), 0 0 16px hsl(270, 100%, 80%);
   }
 }
 
@@ -82,6 +86,7 @@ body,
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
@@ -90,7 +95,76 @@ body,
   text-shadow: var(--neon-purple-shadow);
 }
 
-body {
-  background: rgb(255, 255, 255); /* very light neon purple tint */
-  color:rgb(255, 255, 255); /* fallback text color for contrast */
+/* Enhanced dark mode readability */
+.dark {
+  color-scheme: dark;
+}
+
+/* Ensure proper contrast for cards and interactive elements */
+.dark .bg-white {
+  @apply bg-card;
+}
+
+.dark .text-gray-700 {
+  @apply text-foreground;
+}
+
+.dark .text-gray-500 {
+  @apply text-muted-foreground;
+}
+
+.dark .text-neutral-700 {
+  @apply text-foreground;
+}
+
+.dark .text-neutral-400 {
+  @apply text-muted-foreground;
+}
+
+.dark .border-gray-200 {
+  @apply border-border;
+}
+
+.dark .border-slate-200 {
+  @apply border-border;
+}
+
+.dark .bg-gray-100 {
+  @apply bg-muted;
+}
+
+/* Enhance the neon purple brand color visibility in dark mode */
+.dark .text-\[\#a259ff\] {
+  color: hsl(var(--neon-purple));
+}
+
+.dark .bg-\[\#a259ff\] {
+  background-color: hsl(var(--neon-purple));
+}
+
+.dark .border-\[\#a259ff\] {
+  border-color: hsl(var(--neon-purple));
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom scrollbar for better dark mode experience */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted hover:bg-muted-foreground/20 rounded-full;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-muted hover:bg-muted-foreground/40;
 }

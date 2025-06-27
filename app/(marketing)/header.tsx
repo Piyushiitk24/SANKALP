@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 import Banner from "./banner";
@@ -29,7 +30,7 @@ export const Header = () => {
 
       <header
         className={cn(
-          "h-20 w-full border-b-2 border-slate-200 px-4",
+          "h-20 w-full border-b-2 border-border bg-background px-4",
           !hideBanner ? "mt-20 sm:mt-16 lg:mt-10" : "mt-0"
         )}
       >
@@ -82,6 +83,8 @@ export const Header = () => {
                   </Button>
                 </SignInButton>
               </SignedOut>
+
+              <ThemeToggle variant="simple" className="mr-2" />
 
               <Link
                 href="https://github.com/Piyushiitk24"

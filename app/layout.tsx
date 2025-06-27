@@ -6,6 +6,7 @@ import { ExitModal } from "@/components/modals/exit-modal";
 import { HeartsModal } from "@/components/modals/hearts-modal";
 import { PracticeModal } from "@/components/modals/practice-modal";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config";
 
 import "./globals.css";
@@ -72,13 +73,20 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={font.className}>
-          <Toaster theme="light" richColors closeButton />
-          <ExitModal />
-          <HeartsModal />
-          <PracticeModal />
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Toaster richColors closeButton />
+            <ExitModal />
+            <HeartsModal />
+            <PracticeModal />
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

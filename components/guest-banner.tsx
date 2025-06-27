@@ -54,7 +54,7 @@ export const GuestBanner = () => {
               onClick={handleSignUp}
               size="sm"
               variant="secondary"
-              className="text-xs bg-white text-orange-600 hover:bg-gray-100"
+              className="text-xs bg-white dark:bg-gray-800 text-orange-600 dark:text-orange-400 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               Sign Up
             </Button>
@@ -62,7 +62,7 @@ export const GuestBanner = () => {
               onClick={handleDismiss}
               size="sm"
               variant="ghost"
-              className="text-white hover:bg-white/20 p-1"
+              className="text-white hover:bg-white/20 dark:hover:bg-white/10 p-1"
             >
               <X className="h-4 w-4" />
             </Button>

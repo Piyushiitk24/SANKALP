@@ -110,8 +110,8 @@ export const ShopClient = ({
 
           {/* Show notice for guest users */}
           {!user && guestUser && (
-            <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <p className="text-sm text-yellow-800">
+            <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg">
+              <p className="text-sm text-yellow-800 dark:text-yellow-200">
                 <strong>Guest Mode:</strong> Your progress and purchases won't be saved. 
                 Sign up to keep your items and progress!
               </p>

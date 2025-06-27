@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 import { SidebarItem } from "./sidebar-item";
 import { Button } from "./ui/button";
+import { ThemeToggle } from "./theme-toggle";
 
 type SidebarProps = {
   className?: string;
@@ -16,7 +17,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
   return (
     <div
       className={cn(
-        "left-0 top-0 flex h-full flex-col border-r-2 px-4 lg:fixed lg:w-[256px]",
+        "left-0 top-0 flex h-full flex-col border-r-2 bg-background px-4 lg:fixed lg:w-[256px]",
         className
       )}
     >
@@ -45,7 +46,12 @@ export const Sidebar = ({ className }: SidebarProps) => {
         <SidebarItem label="Shop" href="/shop" iconSrc="/shop.svg" />
       </div>
 
-      <div className="p-4">
+      <div className="p-4 space-y-2">
+        {/* Theme Toggle */}
+        <div className="border-t border-border pt-4">
+          <ThemeToggle variant="simple" showLabel className="w-full justify-start" />
+        </div>
+        
         <ClerkLoading>
           <Loader className="h-5 w-5 animate-spin text-muted-foreground" />
         </ClerkLoading>

@@ -11,35 +11,35 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-white text-black border-slate-200 border-2 border-b-4 active:border-b-2 hover:bg-slate-100 text-slate-500",
+          "bg-white dark:bg-gray-800 text-black dark:text-white border-slate-200 dark:border-gray-600 border-2 border-b-4 active:border-b-2 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-500 dark:text-gray-300",
 
         // custom
         locked:
-          "bg-neutral-200 text-primary-foreground hover:bg-neutral-200/90 border-neutral-400 border-b-4 active:border-b-0",
+          "bg-neutral-200 dark:bg-neutral-700 text-primary-foreground hover:bg-neutral-200/90 dark:hover:bg-neutral-600/90 border-neutral-400 dark:border-neutral-500 border-b-4 active:border-b-0",
 
         primary:
           "bg-sky-400 text-primary-foreground hover:bg-sky-400/90 border-sky-500 border-b-4 active:border-b-0",
-        primaryOutline: "bg-white text-sky-500 hover:bg-slate-100",
+        primaryOutline: "bg-white dark:bg-gray-800 text-sky-500 dark:text-sky-400 hover:bg-slate-100 dark:hover:bg-gray-700",
 
         secondary:
           "bg-[#a259ff] text-primary-foreground hover:bg-[#a259ff]/90 border-[#a259ff] border-b-4 active:border-b-0 shadow-[0_0_8px_#a259ff] hover:shadow-[0_0_12px_#a259ff]",
-        secondaryOutline: "bg-white text-[#a259ff] hover:bg-slate-100",
+        secondaryOutline: "bg-white dark:bg-gray-800 text-[#a259ff] dark:text-[#c084ff] hover:bg-slate-100 dark:hover:bg-gray-700",
 
         danger:
           "bg-rose-500 text-primary-foreground hover:bg-rose-500/90 border-rose-600 border-b-4 active:border-b-0",
-        dangerOutline: "bg-white text-rose-500 hover:bg-slate-100",
+        dangerOutline: "bg-white dark:bg-gray-800 text-rose-500 dark:text-rose-400 hover:bg-slate-100 dark:hover:bg-gray-700",
 
         super:
           "bg-indigo-500 text-primary-foreground hover:bg-indigo-500/90 border-indigo-600 border-b-4 active:border-b-0",
-        superOutline: "bg-white text-indigo-500 hover:bg-slate-100",
+        superOutline: "bg-white dark:bg-gray-800 text-indigo-500 dark:text-indigo-400 hover:bg-slate-100 dark:hover:bg-gray-700",
 
         ghost:
-          "bg-transparent text-slate-500 border-transparent border-0 hover:bg-slate-100",
+          "bg-transparent text-slate-500 dark:text-gray-400 border-transparent border-0 hover:bg-slate-100 dark:hover:bg-gray-800",
 
         sidebar:
-          "bg-transparent text-slate-500 border-2 border-transparent hover:bg-slate-100 transition-none",
+          "bg-transparent text-slate-500 dark:text-gray-400 border-2 border-transparent hover:bg-slate-100 dark:hover:bg-gray-800 transition-none",
         sidebarOutline:
-          "bg-sky-500/15 text-sky-500 border-sky-300 border-2 hover:bg-sky-500/20 transition-none",
+          "bg-sky-500/15 dark:bg-sky-500/20 text-sky-500 dark:text-sky-400 border-sky-300 dark:border-sky-600 border-2 hover:bg-sky-500/20 dark:hover:bg-sky-500/30 transition-none",
 
         neonPurple:
           "bg-[hsl(270,100%,60%)] text-white border-[hsl(270,100%,60%)] border-b-4 active:border-b-0 shadow-[0_0_8px_#a259ff,0_0_16px_#a259ff] hover:bg-[hsl(270,100%,70%)] transition-all duration-200",

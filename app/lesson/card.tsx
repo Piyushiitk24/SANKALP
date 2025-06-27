@@ -48,12 +48,12 @@ export const Card = ({
       onClick={handleClick}
       className={cn(
         "group relative overflow-hidden rounded-2xl border-2 cursor-pointer transition-all duration-300 ease-out",
-        "bg-white shadow-lg hover:shadow-xl hover:-translate-y-1",
-        "border-gray-200 hover:border-gray-300",
+        "bg-card shadow-lg hover:shadow-xl hover:-translate-y-1",
+        "border-border hover:border-muted-foreground/30",
         // Selected states
-        selected && !status && "border-blue-400 bg-blue-50 shadow-blue-200/50",
-        selected && status === "correct" && "border-emerald-400 bg-emerald-50 shadow-emerald-200/50 hover:border-emerald-500",
-        selected && status === "wrong" && "border-red-400 bg-red-50 shadow-red-200/50 hover:border-red-500",
+        selected && !status && "border-blue-400 bg-blue-50 dark:bg-blue-950/50 shadow-blue-200/50 dark:shadow-blue-900/50",
+        selected && status === "correct" && "border-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 shadow-emerald-200/50 dark:shadow-emerald-900/50 hover:border-emerald-500",
+        selected && status === "wrong" && "border-red-400 bg-red-50 dark:bg-red-950/50 shadow-red-200/50 dark:shadow-red-900/50 hover:border-red-500",
         // Disabled state
         disabled && "pointer-events-none opacity-60 hover:translate-y-0 hover:shadow-lg",
         // Type-specific sizing
@@ -77,7 +77,7 @@ export const Card = ({
         {/* Image section */}
         {imageSrc && (
           <div className="relative mb-4 mx-auto aspect-square max-h-[80px] w-fit lg:max-h-[120px]">
-            <div className="relative overflow-hidden rounded-xl bg-gray-100 p-2">
+            <div className="relative overflow-hidden rounded-xl bg-muted p-2">
               <Image 
                 src={imageSrc} 
                 fill 
@@ -97,10 +97,10 @@ export const Card = ({
           <div className="flex-1">
             <p className={cn(
               "text-sm lg:text-base font-medium leading-relaxed transition-colors duration-200",
-              "text-gray-700",
-              selected && !status && "text-blue-700",
-              selected && status === "correct" && "text-emerald-700",
-              selected && status === "wrong" && "text-red-700"
+              "text-foreground",
+              selected && !status && "text-blue-700 dark:text-blue-400",
+              selected && status === "correct" && "text-emerald-700 dark:text-emerald-400",
+              selected && status === "wrong" && "text-red-700 dark:text-red-400"
             )}>
               {text}
             </p>
@@ -117,10 +117,10 @@ export const Card = ({
                 }}
                 className={cn(
                   "flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200",
-                  "bg-gray-100 hover:bg-gray-200 text-gray-600",
-                  selected && !status && "bg-blue-100 hover:bg-blue-200 text-blue-600",
-                  selected && status === "correct" && "bg-emerald-100 hover:bg-emerald-200 text-emerald-600",
-                  selected && status === "wrong" && "bg-red-100 hover:bg-red-200 text-red-600"
+                  "bg-muted hover:bg-muted/80 text-muted-foreground",
+                  selected && !status && "bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-900/70 text-blue-600 dark:text-blue-400",
+                  selected && status === "correct" && "bg-emerald-100 dark:bg-emerald-900/50 hover:bg-emerald-200 dark:hover:bg-emerald-900/70 text-emerald-600 dark:text-emerald-400",
+                  selected && status === "wrong" && "bg-red-100 dark:bg-red-900/50 hover:bg-red-200 dark:hover:bg-red-900/70 text-red-600 dark:text-red-400"
                 )}
               >
                 <Volume2 className="h-4 w-4" />
@@ -130,15 +130,15 @@ export const Card = ({
             {/* Status icon or shortcut */}
             <div className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200",
-              "bg-gray-100 border-2 border-gray-200",
+              "bg-muted border-2 border-border",
               // Unselected state
-              !selected && "text-gray-500 text-sm font-semibold hover:bg-gray-200",
+              !selected && "text-muted-foreground text-sm font-semibold hover:bg-accent",
               // Selected state
-              selected && !status && "bg-blue-100 border-blue-300 text-blue-600 text-sm font-semibold",
+              selected && !status && "bg-blue-100 dark:bg-blue-900/50 border-blue-300 dark:border-blue-700 text-blue-600 dark:text-blue-400 text-sm font-semibold",
               // Correct state
-              selected && status === "correct" && "bg-emerald-100 border-emerald-300 text-emerald-600",
+              selected && status === "correct" && "bg-emerald-100 dark:bg-emerald-900/50 border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400",
               // Wrong state  
-              selected && status === "wrong" && "bg-red-100 border-red-300 text-red-600"
+              selected && status === "wrong" && "bg-red-100 dark:bg-red-900/50 border-red-300 dark:border-red-700 text-red-600 dark:text-red-400"
             )}>
               {selected && status === "correct" ? (
                 <CheckCircle className="h-5 w-5" />

@@ -122,8 +122,8 @@ export const LeaderboardClient = ({
 
           {/* Show notice for guest users */}
           {!user && guestUser && (
-            <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <p className="text-sm text-yellow-800">
+            <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg">
+              <p className="text-sm text-yellow-800 dark:text-yellow-200">
                 <strong>Guest Mode:</strong> Your progress won't be saved to the leaderboard. 
                 Sign up to compete with other learners!
               </p>
@@ -133,7 +133,7 @@ export const LeaderboardClient = ({
           {leaderboard.map((userProgress: any, index: number) => (
             <div
               key={userProgress.userId}
-              className="flex w-full items-center rounded-xl p-2 px-4 hover:bg-gray-200/50"
+              className="flex w-full items-center rounded-xl p-2 px-4 hover:bg-gray-200/50 dark:hover:bg-gray-800/50"
             >
               <p className="mr-4 font-bold text-lime-700">{index + 1}</p>
 
