@@ -62,7 +62,9 @@ const Banner = ({ hide, setHide }: BannerProps) => {
                 </Link>
                 . Only Module 1 has questions currently.{" "}
                 <Link
-                  href="mailto:piyush.tiwari.iitk@gmail.com"
+                  href="https://github.com/Piyushiitk24"
+                  target="_blank"
+                  rel="noreferrer noopener"
                   className="text-white underline hover:no-underline"
                 >
                   Contact admin
@@ -81,7 +83,9 @@ const Banner = ({ hide, setHide }: BannerProps) => {
                 </Link>
                 {" "}•{" "}
                 <Link
-                  href="mailto:piyush.tiwari.iitk@gmail.com"
+                  href="https://github.com/Piyushiitk24"
+                  target="_blank"
+                  rel="noreferrer noopener"
                   className="text-white underline hover:no-underline"
                 >
                   Contribute
