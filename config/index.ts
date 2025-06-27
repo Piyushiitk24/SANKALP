@@ -44,9 +44,12 @@ export const siteConfig: Metadata = {
     url: "https://github.com/piyushiitk24",
   },
   icons: {
-    icon: "/mascotnew.svg",
-    shortcut: "/mascotnew.svg",
-    apple: "/mascotnew.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "SANKALP® - Study of Advanced Novel Knowledge And Learning Practices",
