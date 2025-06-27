@@ -42,46 +42,64 @@ const Banner = ({ hide, setHide }: BannerProps) => {
   return (
     <div
       id="sticky-banner"
-      className="fixed left-0 top-0 z-50 block h-20 w-full bg-secondary p-2.5 opacity-[0.98] shadow-md sm:h-16 lg:h-10"
+      className="fixed left-0 top-0 z-50 block w-full bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-lg"
     >
-      <div className="relative w-full">
-        <div className="flex items-center justify-center">
-          <p className="text-sm font-normal text-gray-900">
-            📢{" "}
-            <strong className="font-semibold text-gray-900">
-              This project is in a testing phase.
-            </strong>{" "}
-            If you find any bugs, please{" "}
-            <Link
-              href="https://github.com/Piyushiitk24/SANKALP/issues/new"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-[#a259ff] transition-opacity hover:opacity-75"
-            >
-              report it
-            </Link>
-            . You can also{" "}
-            <Link
-              href="https://coff.ee/Piyushiitk24"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-[#a259ff] transition-opacity hover:opacity-75"
-            >
-              support this project
-            </Link>
-            .
-          </p>
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-lg">🧪</span>
+            <div className="text-sm">
+              <span className="font-semibold">Testing Phase:</span> This project is currently in testing.{" "}
+              <span className="hidden sm:inline">
+                If you find bugs, please{" "}
+                <Link
+                  href="https://github.com/Piyushiitk24/SANKALP/issues/new"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="text-white underline hover:no-underline"
+                >
+                  report them
+                </Link>
+                . Only Module 1 has questions currently.{" "}
+                <Link
+                  href="mailto:piyush.tiwari.iitk@gmail.com"
+                  className="text-white underline hover:no-underline"
+                >
+                  Contact admin
+                </Link>
+                {" "}to contribute courses, modules, units, lessons, or challenges!
+              </span>
+              <span className="sm:hidden">
+                Found bugs?{" "}
+                <Link
+                  href="https://github.com/Piyushiitk24/SANKALP/issues/new"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="text-white underline hover:no-underline"
+                >
+                  Report
+                </Link>
+                {" "}•{" "}
+                <Link
+                  href="mailto:piyush.tiwari.iitk@gmail.com"
+                  className="text-white underline hover:no-underline"
+                >
+                  Contribute
+                </Link>
+              </span>
+            </div>
+          </div>
+          
+          <button
+            data-dismiss-target="#sticky-banner"
+            onClick={handleBannerClose}
+            type="button"
+            className="text-white hover:bg-white/20 p-1 rounded"
+          >
+            <XIcon className="size-4" strokeWidth={3} />
+            <span className="sr-only">Close banner</span>
+          </button>
         </div>
-
-        <button
-          data-dismiss-target="#sticky-banner"
-          onClick={handleBannerClose}
-          type="button"
-          className="absolute right-0 top-3/4 -translate-y-1/2 rounded-full border border-gray-300 bg-white p-1 opacity-80 hover:opacity-90 sm:top-1/2"
-        >
-          <XIcon className="size-3" strokeWidth={3} />
-          <span className="sr-only">Close banner</span>
-        </button>
       </div>
     </div>
   );

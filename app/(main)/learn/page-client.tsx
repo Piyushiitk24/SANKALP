@@ -145,7 +145,13 @@ export const LearnPageClient = ({
   };
 
   useEffect(() => {
-    console.log("Learn page useEffect triggered:", { userLoaded, guestLoaded, user: !!user, guestUser });
+    console.log("Learn page useEffect triggered:", { 
+      userLoaded, 
+      guestLoaded, 
+      user: !!user, 
+      guestUser: guestUser ? { id: guestUser.id, activeCourseId: guestUser.activeCourseId } : null,
+      timestamp: new Date().toISOString()
+    });
     
     if (!userLoaded || !guestLoaded) return;
 

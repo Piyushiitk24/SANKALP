@@ -91,15 +91,26 @@ export const GuestCourseSelection = ({ courses: propCourses }: Props = {}) => {
       
       if (updatedUser) {
         toast.success("Course selected! Starting your learning journey...");
+        console.log("Course selection successful, checking navigation...");
+        
         // Only navigate if we're not already on the learn page
         const currentPath = window.location.pathname;
+        console.log("Current path:", currentPath);
+        
         if (currentPath !== "/learn") {
+          console.log("Not on learn page, navigating to /learn");
           // Add small delay to show the toast
           setTimeout(() => {
             router.push("/learn");
           }, 1000);
+        } else {
+          console.log("Already on learn page, relying on reactive updates");
+          // If we're already on /learn, the page should automatically update via the useGuestUser hook
+          // But let's force a re-render by triggering a custom event
+          window.dispatchEvent(new CustomEvent('guestUserChanged', { 
+            detail: { guestUser: updatedUser } 
+          }));
         }
-        // If we're already on /learn, the page will automatically update via the useGuestUser hook
       } else {
         throw new Error("Failed to update guest user");
       }
