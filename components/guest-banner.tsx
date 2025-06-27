@@ -36,7 +36,7 @@ export const GuestBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="sticky top-0 z-50 bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-lg">
+    <div className="relative z-30 bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-lg lg:sticky lg:top-0">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
