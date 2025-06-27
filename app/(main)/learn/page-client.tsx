@@ -75,8 +75,78 @@ export const LearnPageClient = ({
   const [units, setUnits] = useState(initialUnits);
   const [courseProgress, setCourseProgress] = useState(initialCourseProgress);
   const [lessonPercentage, setLessonPercentage] = useState(initialLessonPercentage);
+  const [isLoadingCourseData, setIsLoadingCourseData] = useState(false);
+
+  // Function to fetch guest course data
+  const fetchGuestCourseData = async (courseId: number, activeCourse: any) => {
+    console.log("Starting to fetch guest course data for courseId:", courseId);
+    setIsLoadingCourseData(true);
+    
+    try {
+      const response = await fetch(`/api/public/course-data?courseId=${courseId}`);
+      const data = await response.json();
+      
+      if (!data.success) {
+        console.error("Failed to fetch course data:", data.error);
+        router.push("/courses");
+        return;
+      }
+
+      const guestProgress = getGuestProgress() || [];
+      
+      // Process units with guest progress
+      const processedUnits = data.units.map((unit: any) => ({
+        ...unit,
+        lessons: unit.lessons.map((lesson: any) => {
+          const lessonProgress = guestProgress.find(lp => lp.lessonId === lesson.id);
+          const challenges = lesson.challenges.map((challenge: any) => {
+            const challengeProgress = lessonProgress?.challengeProgress.find(cp => cp.challengeId === challenge.id);
+            return {
+              ...challenge,
+              challengeOptions: challenge.challengeOptions || [],
+              completed: challengeProgress?.completed || false,
+            };
+          });
+
+          return {
+            ...lesson,
+            challenges,
+            completed: lessonProgress?.completed || false,
+          };
+        }),
+      }));
+
+      // Find active lesson
+      const firstUncompletedLesson = processedUnits
+        .flatMap((unit: any) => unit.lessons)
+        .find((lesson: any) => !lesson.completed);
+
+      const activeLessonPercentage = firstUncompletedLesson 
+        ? Math.round((firstUncompletedLesson.challenges.filter((c: any) => c.completed).length / firstUncompletedLesson.challenges.length) * 100)
+        : 0;
+
+      console.log("Setting course data for guest user");
+      setUserProgress({
+        ...guestUser,
+        activeCourse,
+      });
+      setUnits(processedUnits);
+      setCourseProgress({
+        activeLesson: firstUncompletedLesson,
+        activeLessonId: firstUncompletedLesson?.id,
+      });
+      setLessonPercentage(activeLessonPercentage);
+    } catch (error) {
+      console.error("Error fetching guest course data:", error);
+      router.push("/courses");
+    } finally {
+      setIsLoadingCourseData(false);
+    }
+  };
 
   useEffect(() => {
+    console.log("Learn page useEffect triggered:", { userLoaded, guestLoaded, user: !!user, guestUser });
+    
     if (!userLoaded || !guestLoaded) return;
 
     // If user is authenticated, use server data
@@ -90,76 +160,42 @@ export const LearnPageClient = ({
 
     // Handle guest user
     if (guestUser && guestUser.activeCourseId) {
+      console.log("Guest user has active course:", guestUser.activeCourseId);
       const activeCourse = courses.find(c => c.id === guestUser.activeCourseId);
       if (!activeCourse) {
-        router.push("/courses");
+        console.log("Active course not found in initial courses, fetching fresh courses");
+        // Try to fetch fresh courses from API
+        fetch("/api/public/courses")
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              const freshActiveCourse = data.courses.find((c: any) => c.id === guestUser.activeCourseId);
+              if (freshActiveCourse && guestUser.activeCourseId) {
+                fetchGuestCourseData(guestUser.activeCourseId, freshActiveCourse);
+              } else {
+                console.log("Course not found even in fresh data, redirecting");
+                router.push("/courses");
+              }
+            } else {
+              router.push("/courses");
+            }
+          })
+          .catch(() => router.push("/courses"));
         return;
       }
 
-      // Fetch guest course data
-      fetch(`/api/public/course-data?courseId=${guestUser.activeCourseId}`)
-        .then(res => res.json())
-        .then(data => {
-          if (!data.success) {
-            router.push("/courses");
-            return;
-          }
-
-          const guestProgress = getGuestProgress() || [];
-          
-          // Process units with guest progress
-          const processedUnits = data.units.map((unit: any) => ({
-            ...unit,
-            lessons: unit.lessons.map((lesson: any) => {
-              const lessonProgress = guestProgress.find(lp => lp.lessonId === lesson.id);
-              const challenges = lesson.challenges.map((challenge: any) => {
-                const challengeProgress = lessonProgress?.challengeProgress.find(cp => cp.challengeId === challenge.id);
-                return {
-                  ...challenge,
-                  challengeOptions: challenge.challengeOptions || [],
-                  completed: challengeProgress?.completed || false,
-                };
-              });
-
-              return {
-                ...lesson,
-                challenges,
-                completed: lessonProgress?.completed || false,
-              };
-            }),
-          }));
-
-          // Find active lesson
-          const firstUncompletedLesson = processedUnits
-            .flatMap((unit: any) => unit.lessons)
-            .find((lesson: any) => !lesson.completed);
-
-          const activeLessonPercentage = firstUncompletedLesson 
-            ? Math.round((firstUncompletedLesson.challenges.filter((c: any) => c.completed).length / firstUncompletedLesson.challenges.length) * 100)
-            : 0;
-
-          setUserProgress({
-            ...guestUser,
-            activeCourse,
-          });
-          setUnits(processedUnits);
-          setCourseProgress({
-            activeLesson: firstUncompletedLesson,
-            activeLessonId: firstUncompletedLesson?.id,
-          });
-          setLessonPercentage(activeLessonPercentage);
-        })
-        .catch(() => {
-          router.push("/courses");
-        });
+      if (guestUser.activeCourseId) {
+        fetchGuestCourseData(guestUser.activeCourseId, activeCourse);
+      }
     } else {
       // No user progress, redirect to courses
+      console.log("No guest user or no active course, redirecting to courses");
       router.push("/courses");
     }
   }, [user, guestUser, userLoaded, guestLoaded, router, courses, initialUserProgress, initialCourseProgress]);
 
   // Loading state
-  if (!userLoaded || !guestLoaded) {
+  if (!userLoaded || !guestLoaded || isLoadingCourseData) {
     return <div className="flex items-center justify-center h-full">Loading...</div>;
   }
 

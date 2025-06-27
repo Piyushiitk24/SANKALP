@@ -91,10 +91,15 @@ export const GuestCourseSelection = ({ courses: propCourses }: Props = {}) => {
       
       if (updatedUser) {
         toast.success("Course selected! Starting your learning journey...");
-        // Add small delay to show the toast
-        setTimeout(() => {
-          router.push("/learn");
-        }, 1000);
+        // Only navigate if we're not already on the learn page
+        const currentPath = window.location.pathname;
+        if (currentPath !== "/learn") {
+          // Add small delay to show the toast
+          setTimeout(() => {
+            router.push("/learn");
+          }, 1000);
+        }
+        // If we're already on /learn, the page will automatically update via the useGuestUser hook
       } else {
         throw new Error("Failed to update guest user");
       }

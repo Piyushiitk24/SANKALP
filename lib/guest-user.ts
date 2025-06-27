@@ -48,12 +48,16 @@ export const setGuestUser = (user: GuestUser): void => {
   if (typeof window === "undefined") return;
   
   localStorage.setItem(GUEST_USER_KEY, JSON.stringify(user));
+  // Dispatch custom event to notify components of the change
+  window.dispatchEvent(new CustomEvent("guest-user-updated"));
 };
 
 export const clearGuestUser = (): void => {
   if (typeof window === "undefined") return;
   
   localStorage.removeItem(GUEST_USER_KEY);
+  // Dispatch custom event to notify components of the change
+  window.dispatchEvent(new CustomEvent("guest-user-updated"));
 };
 
 export const updateGuestUser = (updates: Partial<Omit<GuestUser, 'id' | 'isGuest'>>): GuestUser | null => {
