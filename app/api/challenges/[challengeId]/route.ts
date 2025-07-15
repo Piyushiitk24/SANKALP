@@ -13,15 +13,16 @@ export const GET = async (
   try {
     await requireAdmin();
     const { challengeId } = await params;
+    const challengeIdNumber = parseInt(challengeId);
 
     const data = await db.query.challenges.findFirst({
-      where: eq(challenges.id, parseInt(challengeId)),
+      where: eq(challenges.id, challengeIdNumber),
     });
 
     securityLogger.logAdminAction(
       "admin",
       "CHALLENGE_READ",
-      `id:${challengeId}`
+      `id:${challengeIdNumber}`
     );
 
     return NextResponse.json(data);
@@ -44,6 +45,7 @@ export const PUT = async (
   try {
     await requireAdmin();
     const { challengeId } = await params;
+    const challengeIdNumber = parseInt(challengeId);
 
     const body = (await req.json()) as typeof challenges.$inferSelect;
     const data = await db
@@ -51,13 +53,13 @@ export const PUT = async (
       .set({
         ...body,
       })
-      .where(eq(challenges.id, parseInt(challengeId)))
+      .where(eq(challenges.id, challengeIdNumber))
       .returning();
 
     securityLogger.logAdminAction(
       "admin",
       "CHALLENGE_UPDATED",
-      `id:${challengeId}`
+      `id:${challengeIdNumber}`
     );
 
     return NextResponse.json(data[0]);
@@ -80,16 +82,17 @@ export const DELETE = async (
   try {
     await requireAdmin();
     const { challengeId } = await params;
+    const challengeIdNumber = parseInt(challengeId);
 
     const data = await db
       .delete(challenges)
-      .where(eq(challenges.id, parseInt(challengeId)))
+      .where(eq(challenges.id, challengeIdNumber))
       .returning();
 
     securityLogger.logAdminAction(
       "admin",
       "CHALLENGE_DELETED",
-      `id:${challengeId}`
+      `id:${challengeIdNumber}`
     );
 
     return NextResponse.json(data[0]);

@@ -13,12 +13,13 @@ export const GET = async (
   try {
     await requireAdmin();
     const { lessonId } = await params;
+    const lessonIdNumber = parseInt(lessonId);
 
     const data = await db.query.lessons.findFirst({
-      where: eq(lessons.id, parseInt(lessonId)),
+      where: eq(lessons.id, lessonIdNumber),
     });
 
-    securityLogger.logAdminAction("admin", "LESSON_READ", `id:${lessonId}`);
+    securityLogger.logAdminAction("admin", "LESSON_READ", `id:${lessonIdNumber}`);
     return NextResponse.json(data);
   } catch (error) {
     securityLogger.logError(
@@ -39,6 +40,7 @@ export const PUT = async (
   try {
     await requireAdmin();
     const { lessonId } = await params;
+    const lessonIdNumber = parseInt(lessonId);
 
     const body = (await req.json()) as typeof lessons.$inferSelect;
     const data = await db
@@ -46,10 +48,10 @@ export const PUT = async (
       .set({
         ...body,
       })
-      .where(eq(lessons.id, parseInt(lessonId)))
+      .where(eq(lessons.id, lessonIdNumber))
       .returning();
 
-    securityLogger.logAdminAction("admin", "LESSON_UPDATED", `id:${lessonId}`);
+    securityLogger.logAdminAction("admin", "LESSON_UPDATED", `id:${lessonIdNumber}`);
     return NextResponse.json(data[0]);
   } catch (error) {
     securityLogger.logError(
@@ -70,13 +72,14 @@ export const DELETE = async (
   try {
     await requireAdmin();
     const { lessonId } = await params;
+    const lessonIdNumber = parseInt(lessonId);
 
     const data = await db
       .delete(lessons)
-      .where(eq(lessons.id, parseInt(lessonId)))
+      .where(eq(lessons.id, lessonIdNumber))
       .returning();
 
-    securityLogger.logAdminAction("admin", "LESSON_DELETED", `id:${lessonId}`);
+    securityLogger.logAdminAction("admin", "LESSON_DELETED", `id:${lessonIdNumber}`);
     return NextResponse.json(data[0]);
   } catch (error) {
     securityLogger.logError(
