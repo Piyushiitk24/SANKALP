@@ -17,6 +17,8 @@ export function ThemeAwareClerkProvider({ children }: ThemeAwareClerkProviderPro
     layout: {
       logoImageUrl: "/mascotnew.svg",
       logoPlacement: "inside" as const,
+      socialButtonsPlacement: "top" as const,
+      socialButtonsVariant: "iconButton" as const,
     },
     variables: {
       colorPrimary: "#a259ff",
@@ -24,6 +26,10 @@ export function ThemeAwareClerkProvider({ children }: ThemeAwareClerkProviderPro
       fontSize: "14px",
     },
     elements: {
+      logoImage: {
+        height: "40px",
+        width: "40px",
+      },
       formButtonPrimary: {
         backgroundColor: "#a259ff",
         borderColor: "#a259ff",
@@ -46,6 +52,10 @@ export function ThemeAwareClerkProvider({ children }: ThemeAwareClerkProviderPro
         "&:hover": {
           backgroundColor: theme === "dark" ? "#374151" : "#f9fafb",
         },
+      },
+      socialButtonsBlockButtonIcon: {
+        height: "18px",
+        width: "18px",
       },
       footerActionLink: {
         color: "#a259ff",

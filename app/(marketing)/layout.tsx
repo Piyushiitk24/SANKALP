@@ -8,7 +8,7 @@ const MarketingLayout = ({ children }: PropsWithChildren) => {
     <div className="flex min-h-screen flex-col overflow-x-hidden">
       <Header />
 
-      <main className="flex flex-1 flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+      <main className="flex flex-1 flex-col items-center justify-center px-2 sm:px-4 lg:px-6">
         {children}
       </main>
 

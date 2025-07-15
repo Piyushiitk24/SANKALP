@@ -22,7 +22,7 @@ import Banner from "./banner";
 
 export const Header = () => {
   const { isSignedIn } = useAuth();
-  const [hideBanner, setHideBanner] = useState(true);
+  const [hideBanner, setHideBanner] = useState(false);
 
   return (
     <>

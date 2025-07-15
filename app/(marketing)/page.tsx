@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 export default function MarketingPage() {
   const [showGuestModal, setShowGuestModal] = useState(false);
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center gap-2 p-4 lg:flex-row">
+    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center gap-2 p-2 sm:p-4 lg:flex-row">
       <div className="relative mb-8 h-[240px] w-[240px] lg:mb-0 lg:h-[424px] lg:w-[424px]">
         <Image src="/heronew.png" alt="Hero" fill />
       </div>
