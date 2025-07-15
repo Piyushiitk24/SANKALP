@@ -44,11 +44,11 @@ const Banner = ({ hide, setHide }: BannerProps) => {
       id="sticky-banner"
       className="fixed left-0 top-0 z-50 block w-full bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-lg"
     >
-      <div className="container mx-auto px-4 py-3">
+      <div className="container mx-auto max-w-7xl px-4 py-3">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="text-lg">🧪</span>
-            <div className="text-sm">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <span className="text-lg flex-shrink-0">🧪</span>
+            <div className="text-sm min-w-0">
               <span className="font-semibold">Testing Phase:</span> This project is currently in testing.{" "}
               <span className="hidden sm:inline">
                 If you find bugs, please{" "}
@@ -98,7 +98,7 @@ const Banner = ({ hide, setHide }: BannerProps) => {
             data-dismiss-target="#sticky-banner"
             onClick={handleBannerClose}
             type="button"
-            className="text-white hover:bg-white/20 p-1 rounded"
+            className="text-white hover:bg-white/20 p-1 rounded flex-shrink-0"
           >
             <XIcon className="size-4" strokeWidth={3} />
             <span className="sr-only">Close banner</span>

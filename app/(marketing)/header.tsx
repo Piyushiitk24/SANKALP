@@ -30,12 +30,12 @@ export const Header = () => {
 
       <header
         className={cn(
-          "h-20 w-full border-b-2 border-border bg-background px-4",
+          "h-20 w-full border-b-2 border-border bg-background",
           !hideBanner ? "mt-20 sm:mt-16 lg:mt-10" : "mt-0"
         )}
       >
-        <div className="mx-auto flex h-full items-center justify-between lg:max-w-screen-lg">
-          <Link href="/" className="flex items-center gap-x-3 pb-7 pl-4 pt-8">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="flex items-center gap-x-3 pb-7 pt-8">
             <Image src="/mascotnew.svg" alt="Mascot" height={40} width={40} />
             <div className="flex flex-col">
               <h1 className="text-2xl font-extrabold tracking-wide text-neon-purple-glow">
