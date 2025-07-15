@@ -1,14 +1,29 @@
-import dynamic from "next/dynamic";
-import { redirect } from "next/navigation";
+"use client";
 
-import { getIsAdmin } from "@/lib/admin";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { useEffect } from "react";
 
 const App = dynamic(() => import("./app"), { ssr: false });
 
 const AdminPage = () => {
-  const isAdmin = getIsAdmin();
+  const { user, isLoaded } = useUser();
+  const router = useRouter();
 
-  if (!isAdmin) redirect("/");
+  useEffect(() => {
+    if (isLoaded && !user) {
+      router.push("/");
+    }
+  }, [isLoaded, user, router]);
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div>

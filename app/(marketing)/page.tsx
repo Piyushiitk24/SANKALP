@@ -39,8 +39,8 @@ export default function MarketingPage() {
             <SignedOut>
               <SignUpButton
                 mode="modal"
-                afterSignInUrl="/learn"
-                afterSignUpUrl="/learn"
+                fallbackRedirectUrl="/learn"
+                signInFallbackRedirectUrl="/learn"
               >
                 <Button
                   size="lg"
@@ -53,8 +53,8 @@ export default function MarketingPage() {
 
               <SignInButton
                 mode="modal"
-                afterSignInUrl="/learn"
-                afterSignUpUrl="/learn"
+                fallbackRedirectUrl="/learn"
+                signUpFallbackRedirectUrl="/learn"
               >
                 <Button
                   size="lg"

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANKALP Responsive Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #a259ff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-frame {
+            border: 2px solid #ddd;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .test-frame h3 {
+            background: #f0f0f0;
+            margin: 0;
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        .test-frame iframe {
+            width: 100%;
+            border: none;
+            display: block;
+        }
+        .mobile { height: 667px; }
+        .tablet { height: 1024px; }
+        .desktop { height: 800px; }
+        .test-info {
+            background: #e8f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #a259ff;
+        }
+        .checklist {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .checklist h4 {
+            margin-top: 0;
+            color: #333;
+        }
+        .checklist ul {
+            margin: 10px 0;
+        }
+        .checklist li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        .success { color: #28a745; }
+        .warning { color: #ffc107; }
+        .error { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 SANKALP Layout Testing Suite</h1>
+        
+        <div class="test-info">
+            <h3>🎯 Testing Objective</h3>
+            <p>This page helps verify that the homepage layout fixes are working correctly across different screen sizes and devices.</p>
+            <p><strong>What we fixed:</strong></p>
+            <ul>
+                <li>Centered main content using max-width constraints</li>
+                <li>Improved responsive padding and margins</li>
+                <li>Fixed footer overflow issues</li>
+                <li>Added horizontal overflow prevention</li>
+                <li>Enhanced banner responsiveness</li>
+            </ul>
+        </div>
+
+        <div class="test-frame">
+            <h3>📱 Mobile View (iPhone SE - 375px)</h3>
+            <iframe src="http://localhost:3000" class="mobile" style="width: 375px; max-width: 100%;"></iframe>
+        </div>
+
+        <div class="test-frame">
+            <h3>📱 Tablet View (iPad - 768px)</h3>
+            <iframe src="http://localhost:3000" class="tablet" style="width: 768px; max-width: 100%;"></iframe>
+        </div>
+
+        <div class="test-frame">
+            <h3>💻 Desktop View (1024px)</h3>
+            <iframe src="http://localhost:3000" class="desktop" style="width: 1024px; max-width: 100%;"></iframe>
+        </div>
+
+        <div class="test-frame">
+            <h3>🖥️ Large Desktop View (1440px)</h3>
+            <iframe src="http://localhost:3000" class="desktop" style="width: 1440px; max-width: 100%;"></iframe>
+        </div>
+
+        <div class="checklist">
+            <h4>✅ Verification Checklist</h4>
+            <p>Please verify the following on each viewport:</p>
+            <ul>
+                <li>✓ Content is properly centered on the page</li>
+                <li>✓ No horizontal scrollbar appears</li>
+                <li>✓ Header logo and navigation are properly aligned</li>
+                <li>✓ Footer buttons are visible and don't overflow</li>
+                <li>✓ Banner (if visible) doesn't cause layout issues</li>
+                <li>✓ Main content hero image and text are properly positioned</li>
+                <li>✓ Buttons are properly sized and accessible</li>
+                <li>✓ All text is readable and properly spaced</li>
+            </ul>
+        </div>
+
+        <div class="test-info">
+            <h3>🔧 Manual Testing Instructions</h3>
+            <ol>
+                <li>Open the main site at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+                <li>Test on different browsers (Chrome, Firefox, Safari, Edge)</li>
+                <li>Use browser dev tools to test various screen sizes</li>
+                <li>Check for horizontal scroll by resizing the window</li>
+                <li>Verify banner dismissal works correctly</li>
+                <li>Test both light and dark themes</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

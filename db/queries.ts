@@ -1,6 +1,6 @@
 import { cache } from "react";
 
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
 import { getGuestUser } from "@/lib/guest-user";
@@ -24,7 +24,7 @@ export const getCourses = async () => {
 };
 
 export const getUserProgress = cache(async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   // Return null for non-authenticated users - guest handling will be done client-side
   if (!userId) {
@@ -42,7 +42,7 @@ export const getUserProgress = cache(async () => {
 });
 
 export const getUnits = cache(async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
   const userProgressData = await getUserProgress();
 
   if (!userProgressData?.activeCourseId) {
@@ -143,7 +143,7 @@ export const getCourseById = cache(async (courseId: number) => {
 });
 
 export const getCourseProgress = cache(async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
   const userProgress = await getUserProgress();
 
   if (!userId || !userProgress?.activeCourseId) return null;
@@ -187,7 +187,7 @@ export const getCourseProgress = cache(async () => {
 });
 
 export const getLesson = cache(async (id?: number) => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) return null;
 
@@ -246,7 +246,7 @@ export const getLessonPercentage = cache(async () => {
 });
 
 export const getUserSubscription = cache(async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) return null;
 
@@ -267,7 +267,7 @@ export const getUserSubscription = cache(async () => {
 });
 
 export const getTopTenUsers = cache(async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) return [];
 

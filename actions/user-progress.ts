@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -29,7 +29,7 @@ export const selectCourseAsGuest = async (courseId: number) => {
 };
 
 export const upsertUserProgress = async (courseId: number) => {
-  const { userId } = auth();
+  const { userId } = await auth();
   const user = await currentUser();
 
   if (!userId || !user) throw new Error("Unauthorized.");
@@ -71,7 +71,7 @@ export const upsertUserProgress = async (courseId: number) => {
 };
 
 export const reduceHearts = async (challengeId: number) => {
-  const { userId } = auth();
+  const { userId } = await auth();
   const currentUserProgress = await getUserProgress();
 
   if (!currentUserProgress) throw new Error("User progress not found.");
@@ -148,7 +148,7 @@ export const reduceHearts = async (challengeId: number) => {
 };
 
 export const refillHearts = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
   const currentUserProgress = await getUserProgress();
 
   if (!currentUserProgress) throw new Error("User progress not found.");
@@ -184,7 +184,7 @@ export const refillHearts = async () => {
 };
 
 export const refillHeartsFromVideo = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
   const currentUserProgress = await getUserProgress();
 
   if (!currentUserProgress) throw new Error("User progress not found.");

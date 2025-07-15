@@ -3,52 +3,89 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import db from "@/db/drizzle";
 import { units } from "@/db/schema";
-import { getIsAdmin } from "@/lib/admin";
+import { requireAdmin } from "@/lib/admin";
+import { securityLogger } from "@/lib/logger";
 
 export const GET = async (
   _req: NextRequest,
-  { params }: { params: { unitId: number } }
+  { params }: { params: Promise<{ unitId: string }> }
 ) => {
-  const isAdmin = getIsAdmin();
-  if (!isAdmin) return new NextResponse("Unauthorized.", { status: 401 });
+  try {
+    await requireAdmin();
+    const { unitId } = await params;
 
-  const data = await db.query.units.findFirst({
-    where: eq(units.id, params.unitId),
-  });
+    const data = await db.query.units.findFirst({
+      where: eq(units.id, parseInt(unitId)),
+    });
 
-  return NextResponse.json(data);
+    securityLogger.logAdminAction("admin", "UNIT_READ", `id:${unitId}`);
+    return NextResponse.json(data);
+  } catch (error) {
+    securityLogger.logError(
+      error instanceof Error ? error : new Error("Unknown error"),
+      "unit-get"
+    );
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 };
 
 export const PUT = async (
   req: NextRequest,
-  { params }: { params: { unitId: number } }
+  { params }: { params: Promise<{ unitId: string }> }
 ) => {
-  const isAdmin = getIsAdmin();
-  if (!isAdmin) return new NextResponse("Unauthorized.", { status: 401 });
+  try {
+    await requireAdmin();
+    const { unitId } = await params;
 
-  const body = (await req.json()) as typeof units.$inferSelect;
-  const data = await db
-    .update(units)
-    .set({
-      ...body,
-    })
-    .where(eq(units.id, params.unitId))
-    .returning();
+    const body = (await req.json()) as typeof units.$inferSelect;
+    const data = await db
+      .update(units)
+      .set({
+        ...body,
+      })
+      .where(eq(units.id, parseInt(unitId)))
+      .returning();
 
-  return NextResponse.json(data[0]);
+    securityLogger.logAdminAction("admin", "UNIT_UPDATED", `id:${unitId}`);
+    return NextResponse.json(data[0]);
+  } catch (error) {
+    securityLogger.logError(
+      error instanceof Error ? error : new Error("Unknown error"),
+      "unit-put"
+    );
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 };
 
 export const DELETE = async (
   _req: NextRequest,
-  { params }: { params: { unitId: number } }
+  { params }: { params: Promise<{ unitId: string }> }
 ) => {
-  const isAdmin = getIsAdmin();
-  if (!isAdmin) return new NextResponse("Unauthorized.", { status: 401 });
+  try {
+    await requireAdmin();
+    const { unitId } = await params;
 
-  const data = await db
-    .delete(units)
-    .where(eq(units.id, params.unitId))
-    .returning();
+    const data = await db
+      .delete(units)
+      .where(eq(units.id, parseInt(unitId)))
+      .returning();
 
-  return NextResponse.json(data[0]);
+    securityLogger.logAdminAction("admin", "UNIT_DELETED", `id:${unitId}`);
+    return NextResponse.json(data[0]);
+  } catch (error) {
+    securityLogger.logError(
+      error instanceof Error ? error : new Error("Unknown error"),
+      "unit-delete"
+    );
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 };

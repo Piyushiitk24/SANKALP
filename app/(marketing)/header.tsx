@@ -71,8 +71,8 @@ export const Header = () => {
               <SignedOut>
                 <SignInButton
                   mode="modal"
-                  afterSignInUrl="/learn"
-                  afterSignUpUrl="/learn"
+                  fallbackRedirectUrl="/learn"
+                  signUpFallbackRedirectUrl="/learn"
                 >
                   <Button
                     size="lg"

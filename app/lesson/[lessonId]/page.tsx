@@ -3,13 +3,16 @@ import { getLesson, getUserProgress, getUserSubscription } from "@/db/queries";
 import { LessonPageClient } from "../page-client";
 
 type LessonIdPageProps = {
-  params: {
-    lessonId: number;
-  };
+  params: Promise<{
+    lessonId: string;
+  }>;
 };
 
 const LessonIdPage = async ({ params }: LessonIdPageProps) => {
-  const lessonData = getLesson(params.lessonId);
+  const { lessonId } = await params;
+  const lessonIdNumber = parseInt(lessonId);
+  
+  const lessonData = getLesson(lessonIdNumber);
   const userProgressData = getUserProgress();
   const userSubscriptionData = getUserSubscription();
 
@@ -24,7 +27,7 @@ const LessonIdPage = async ({ params }: LessonIdPageProps) => {
       initialLesson={lesson}
       initialUserProgress={userProgress}
       initialUserSubscription={userSubscription}
-      lessonId={params.lessonId}
+      lessonId={lessonIdNumber}
     />
   );
 };
