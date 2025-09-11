@@ -91,7 +91,6 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
-  swcMinify: true,
 };
 
 export default nextConfig;

@@ -306,6 +306,55 @@ Once the script completes, check your database to ensure that the challenges dat
 
 [![React JS](https://skillicons.dev/icons?i=react "React JS")](https://react.dev/ "React JS") [![Next JS](https://skillicons.dev/icons?i=next "Next JS")](https://nextjs.org/ "Next JS") [![Typescript](https://skillicons.dev/icons?i=ts "Typescript")](https://www.typescriptlang.org/ "Typescript") [![Tailwind CSS](https://skillicons.dev/icons?i=tailwind "Tailwind CSS")](https://tailwindcss.com/ "Tailwind CSS") [![Vercel](https://skillicons.dev/icons?i=vercel "Vercel")](https://vercel.app/ "Vercel") [![Postgresql](https://skillicons.dev/icons?i=postgres "Postgresql")](https://www.postgresql.org/ "Postgresql")
 
+## 🧭 Architecture & Developer Guide
+
+- Framework: Next.js App Router + TypeScript + Tailwind
+- UI vs Logic vs Data:
+  - UI components in `components/*` and route UIs in `app/(main)/*`, `app/(marketing)/*`, `app/admin/*`
+  - Server actions in `actions/*` (mutations, `revalidatePath` for `/learn`, `/lesson`, `/quests`, `/leaderboard`)
+  - Drizzle ORM in `db/*` (`schema.ts`, `queries.ts` with `cache()` + Clerk `auth()`), DB seeding via `scripts/prod.ts`
+- Auth & Admin: Clerk themed via `components/theme-aware-clerk-provider.tsx`; admin is gated in `middleware.ts` using `CLERK_ADMIN_IDS` and a route matcher for `/admin`
+- Guest Mode: Client-side user in `lib/guest-user.ts` + `hooks/use-guest-user.ts`; UI gated with `components/guest-user-handler.tsx`
+  - For guests, `db/queries.getUserProgress()` returns `null`; update guest state in the client via `updateGuestUser()` and a `CustomEvent("guest-user-updated")`
+- State: Zustand stores under `store/*` (e.g., hearts/practice/exit modals)
+- Payments: Stripe client/server code in `lib/stripe.ts` with webhook handler under `app/api/webhooks/stripe`
+
+### Security & Ops (in practice)
+- Security headers + CSP: configured in `next.config.mjs` (extend `script-src`, `connect-src`, `img-src`, `frame-src` if you add providers)
+- Middleware (`middleware.ts`): blocks suspicious user agents, prevents path traversal, and restricts `/admin` to IDs from `CLERK_ADMIN_IDS`
+- Rate limiting helpers: `lib/rate-limit.ts` (Upstash Redis via `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`); use `withRateLimit` / `withAuthRateLimit` in API routes as needed
+- Logging: Winston logs to `logs/combined.log`, `logs/error.log`, `logs/security.log` with rotation (see repo `logs/` directory)
+- Theming: Neon purple `#a259ff` via `components/theme-provider.tsx` and Clerk theme in `components/theme-aware-clerk-provider.tsx`
+
+### Developer Commands
+- Install: `npm install --legacy-peer-deps`
+- Dev: `npm run dev`
+- DB: `npm run db:push` (Drizzle push), `npm run db:prod` (seed via `scripts/prod.ts`), optional studio: `npm run db:studio`
+- Build/Start: `npm run build` / `npm start`
+- Lint/Format: `npm run lint`, `npm run format:fix`
+
+### Environment
+Required env keys in `.env` (see examples below and details in this README):
+`DATABASE_URL`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `STRIPE_API_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_APP_URL`, `CLERK_ADMIN_IDS`
+
+## 👤 Guest Mode (summary)
+
+- Continue as guest from marketing or direct `/learn` entry; guest user is auto-created on the client
+- Persistence via `localStorage` under key `sankalp_guest_user`; updates broadcast with `CustomEvent("guest-user-updated")`
+- Course validation: call `actions/user-progress.selectCourseAsGuest(courseId)` then set `activeCourseId` via `updateGuestUser()`
+- Actions pattern: for guests, server actions return lightweight results and the client updates local guest state (e.g., hearts/points)
+
+## 🌓 Dark Mode
+
+- Implemented using `next-themes` and Tailwind dark variants; consistent neon purple accent (#a259ff)
+- Toggles available in sidebar, mobile header, and marketing pages; smooth transitions and accessible contrast
+
+## 🧪 Demo Mode
+
+- Feature flag lives in `constants.ts` under `DEMO_MODE.HIDE_PAID_HEART_OPTIONS`
+  - `true`: hides paid heart options; keeps “Watch Video to refill hearts” flow (hearts modal auto-opens with video)
+  - `false`: shows full shop (points refill + subscription via Stripe)
+
 ## :sparkles: Core Features
 
 - **🌍 Multi-Subject Learning**: Comprehensive lessons across various educational topics and subjects
