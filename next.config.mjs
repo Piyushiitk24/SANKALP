@@ -52,20 +52,24 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: `
-              default-src 'self';
-              script-src 'self' 'unsafe-eval' 'unsafe-inline' *.clerk.accounts.dev *.clerk.dev *.stripe.com;
-              style-src 'self' 'unsafe-inline' *.googleapis.com;
-              img-src 'self' data: *.clerk.accounts.dev *.clerk.dev *.stripe.com;
-              font-src 'self' *.googleapis.com *.gstatic.com;
-              connect-src 'self' *.clerk.accounts.dev *.clerk.dev *.stripe.com api.stripe.com;
-              frame-src 'self' *.stripe.com;
-              media-src 'self';
-              object-src 'none';
-              base-uri 'self';
-              form-action 'self';
-              upgrade-insecure-requests;
-            `.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim(),
+            value: (() => {
+              const isDev = process.env.NODE_ENV !== 'production';
+              const base = `
+                default-src 'self';
+                script-src 'self' 'unsafe-eval' 'unsafe-inline' *.clerk.accounts.dev *.clerk.dev *.stripe.com;
+                style-src 'self' 'unsafe-inline' *.googleapis.com;
+                img-src 'self' data: *.clerk.accounts.dev *.clerk.dev *.stripe.com;
+                font-src 'self' *.googleapis.com *.gstatic.com;
+                connect-src 'self' *.clerk.accounts.dev *.clerk.dev *.stripe.com api.stripe.com http://localhost:3000 http://127.0.0.1:3000 http://192.168.1.0/16 http://192.168.1.109:3000;
+                frame-src 'self' *.stripe.com;
+                media-src 'self';
+                object-src 'none';
+                base-uri 'self';
+                form-action 'self';
+              `;
+              const prodDirective = 'upgrade-insecure-requests;';
+              return (base + (isDev ? '' : prodDirective)).replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+            })(),
           }
         ],
       },
@@ -91,6 +95,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
+  swcMinify: true,
 };
 
 export default nextConfig;

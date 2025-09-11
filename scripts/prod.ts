@@ -1,8 +1,35 @@
 import { neon } from "@neondatabase/serverless";
-import "dotenv/config";
+import fs from "node:fs";
+import path from "node:path";
+import dotenv from "dotenv";
 import { drizzle } from "drizzle-orm/neon-http";
 
 import * as schema from "@/db/schema";
+
+// Prefer .env.local if present to match Next.js dev server behavior
+(() => {
+  try {
+    const cwd = process.cwd();
+    const envLocal = path.join(cwd, ".env.local");
+    const env = path.join(cwd, ".env");
+    if (fs.existsSync(envLocal)) {
+      dotenv.config({ path: envLocal });
+      // eslint-disable-next-line no-console
+      console.log("Loaded environment from .env.local");
+    } else if (fs.existsSync(env)) {
+      dotenv.config({ path: env });
+      // eslint-disable-next-line no-console
+      console.log("Loaded environment from .env");
+    } else {
+      dotenv.config();
+      // eslint-disable-next-line no-console
+      console.log("Loaded environment from process only (no .env files found)");
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn("Warning: failed to initialize environment:", e);
+  }
+})();
 
 const sql = neon(process.env.DATABASE_URL);
 
@@ -10,7 +37,13 @@ const db = drizzle(sql, { schema });
 
 const main = async () => {
   try {
-    console.log("Seeding database");
+    // Safe hint about which DB host we're seeding (avoid leaking secrets)
+    try {
+      const url = new URL(process.env.DATABASE_URL || "");
+      console.log(`Seeding database on host: ${url.hostname}`);
+    } catch {
+      console.log("Seeding database (DATABASE_URL host unavailable)");
+    }
 
     // Delete all existing data
     await Promise.all([
@@ -32,6 +65,8 @@ const main = async () => {
         { title: "Andragogy", imageSrc: "/ag.png" },
         { title: "Systematic Approach to Training (SAT)", imageSrc: "/st.png" },
         { title: "Domains of Learning", imageSrc: "/dl.png" },
+        { title: "Semaphore", imageSrc: "/semaphore.svg" },
+        { title: "Flashing (Morse Code)", imageSrc: "/flashing.svg" },
       ])
       .returning();
 
@@ -581,6 +616,196 @@ const main = async () => {
               { challengeId: challenges[2].id, correct: false, text: "To make sure all students get the same grade." },
               { challengeId: challenges[2].id, correct: true, text: "To meet the diverse needs of all learners." },
               { challengeId: challenges[2].id, correct: false, text: "To save time on lesson planning." },
+            ]);
+          }
+        }
+      }
+
+      // Course 6: Semaphore
+      if (course.title === "Semaphore") {
+        const units = await db.insert(schema.units).values([
+          { courseId: course.id, title: "Unit 1: Basics of Semaphore", description: "Understand flags, positions, and posture.", order: 1 },
+          { courseId: course.id, title: "Unit 2: Encoding Letters", description: "Map positions to letters A–Z.", order: 2 },
+          { courseId: course.id, title: "Unit 3: Numbers & Procedure", description: "Numbers, attention, and correction.", order: 3 },
+        ]).returning();
+
+        for (const unit of units) {
+          if (unit.order === 1) {
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "What is Semaphore?", order: 1 },
+              { unitId: unit.id, title: "Flag Positions & Safety", order: 2 },
+            ]).returning();
+
+            let challenges = await db.insert(schema.challenges).values([
+              { lessonId: lessons[0].id, type: "SELECT", question: "Semaphore primarily uses which items for signaling?", order: 1 },
+              { lessonId: lessons[0].id, type: "SELECT", question: "How many distinct flag positions represent the alphabet?", order: 2 },
+              { lessonId: lessons[1].id, type: "SELECT", question: "Which is a key safety practice in semaphore messaging?", order: 3 },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: true, text: "Handheld flags" },
+              { challengeId: challenges[0].id, correct: false, text: "Whistles" },
+              { challengeId: challenges[0].id, correct: false, text: "Signal mirrors" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Eight principal positions" },
+              { challengeId: challenges[1].id, correct: false, text: "Three positions" },
+              { challengeId: challenges[1].id, correct: false, text: "Twenty positions" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Maintain clear line of sight with receiver" },
+              { challengeId: challenges[2].id, correct: false, text: "Wave flags rapidly to increase visibility" },
+              { challengeId: challenges[2].id, correct: false, text: "Use any color flags available" },
+            ]);
+          }
+
+          if (unit.order === 2) {
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Letters A–M", order: 1 },
+              { unitId: unit.id, title: "Letters N–Z", order: 2 },
+            ]).returning();
+
+            let challenges = await db.insert(schema.challenges).values([
+              { lessonId: lessons[0].id, type: "SELECT", question: "Which position represents the letter 'A'?", order: 1 },
+              { lessonId: lessons[0].id, type: "SELECT", question: "Which letter uses flags at 12 and 3 o'clock?", order: 2 },
+              { lessonId: lessons[1].id, type: "SELECT", question: "The letter 'Z' corresponds to which flag position?", order: 3 },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: true, text: "Right up, left down (approx. 12 & 6)" },
+              { challengeId: challenges[0].id, correct: false, text: "Both horizontal (3 & 9)" },
+              { challengeId: challenges[0].id, correct: false, text: "Both down (5 & 7)" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "C" },
+              { challengeId: challenges[1].id, correct: false, text: "F" },
+              { challengeId: challenges[1].id, correct: false, text: "L" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Right 1 o'clock, left 7 o'clock" },
+              { challengeId: challenges[2].id, correct: false, text: "Both up (12 & 12)" },
+              { challengeId: challenges[2].id, correct: false, text: "Right 9, left 3" },
+            ]);
+          }
+
+          if (unit.order === 3) {
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Numbers", order: 1 },
+              { unitId: unit.id, title: "Attention & Correction", order: 2 },
+            ]).returning();
+
+            let challenges = await db.insert(schema.challenges).values([
+              { lessonId: lessons[0].id, type: "SELECT", question: "How are numbers commonly conveyed in semaphore?", order: 1 },
+              { lessonId: lessons[1].id, type: "SELECT", question: "What gesture indicates 'Attention' before sending a message?", order: 2 },
+              { lessonId: lessons[1].id, type: "SELECT", question: "How do you signal a correction?", order: 3 },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: true, text: "By using 'Numerals' indicator then letters" },
+              { challengeId: challenges[0].id, correct: false, text: "Distinct flag colors" },
+              { challengeId: challenges[0].id, correct: false, text: "Rapid double waves" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Hold flags crossed in front" },
+              { challengeId: challenges[1].id, correct: false, text: "Wave both flags above head" },
+              { challengeId: challenges[1].id, correct: false, text: "Hold one flag vertically" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Repeat last few characters then proceed" },
+              { challengeId: challenges[2].id, correct: false, text: "Drop flags to the ground" },
+              { challengeId: challenges[2].id, correct: false, text: "Spin in place with flags" },
+            ]);
+          }
+        }
+      }
+
+      // Course 7: Flashing (Morse Code)
+      if (course.title === "Flashing (Morse Code)") {
+        const units = await db.insert(schema.units).values([
+          { courseId: course.id, title: "Unit 1: Morse Basics", description: "Dots, dashes, spacing, and rhythm.", order: 1 },
+          { courseId: course.id, title: "Unit 2: Letters & Numbers", description: "Common letter/number codes.", order: 2 },
+          { courseId: course.id, title: "Unit 3: Prosigns & Practice", description: "CQ, SOS, and message flow.", order: 3 },
+        ]).returning();
+
+        for (const unit of units) {
+          if (unit.order === 1) {
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "What is Morse?", order: 1 },
+              { unitId: unit.id, title: "Timing & Cadence", order: 2 },
+            ]).returning();
+
+            let challenges = await db.insert(schema.challenges).values([
+              { lessonId: lessons[0].id, type: "SELECT", question: "A dot and a dash differ in:", order: 1 },
+              { lessonId: lessons[0].id, type: "SELECT", question: "What separates letters in Morse?", order: 2 },
+              { lessonId: lessons[1].id, type: "SELECT", question: "Which describes correct timing?", order: 3 },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: true, text: "Duration (dash is three units)" },
+              { challengeId: challenges[0].id, correct: false, text: "Pitch (dash is higher)" },
+              { challengeId: challenges[0].id, correct: false, text: "Brightness (dash is brighter)" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Short silence (three units)" },
+              { challengeId: challenges[1].id, correct: false, text: "Long silence (seven units)" },
+              { challengeId: challenges[1].id, correct: false, text: "No silence required" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "Dot=1, dash=3, intra-letter gap=1" },
+              { challengeId: challenges[2].id, correct: false, text: "Dot=3, dash=1, intra-letter gap=3" },
+              { challengeId: challenges[2].id, correct: false, text: "Dot=2, dash=2, intra-letter gap=2" },
+            ]);
+          }
+
+          if (unit.order === 2) {
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Common Letters", order: 1 },
+              { unitId: unit.id, title: "Numbers 0–9", order: 2 },
+            ]).returning();
+
+            let challenges = await db.insert(schema.challenges).values([
+              { lessonId: lessons[0].id, type: "SELECT", question: "Which is 'E' in Morse?", order: 1 },
+              { lessonId: lessons[0].id, type: "SELECT", question: "Which is 'S' in Morse?", order: 2 },
+              { lessonId: lessons[1].id, type: "SELECT", question: "Which is '0' in Morse?", order: 3 },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: true, text: "." },
+              { challengeId: challenges[0].id, correct: false, text: "-" },
+              { challengeId: challenges[0].id, correct: false, text: "..." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "..." },
+              { challengeId: challenges[1].id, correct: false, text: "-.." },
+              { challengeId: challenges[1].id, correct: false, text: ".-." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "-----" },
+              { challengeId: challenges[2].id, correct: false, text: ".----" },
+              { challengeId: challenges[2].id, correct: false, text: "----." },
+            ]);
+          }
+
+          if (unit.order === 3) {
+            const lessons = await db.insert(schema.lessons).values([
+              { unitId: unit.id, title: "Prosigns", order: 1 },
+              { unitId: unit.id, title: "Practice Messages", order: 2 },
+            ]).returning();
+
+            let challenges = await db.insert(schema.challenges).values([
+              { lessonId: lessons[0].id, type: "SELECT", question: "SOS corresponds to:", order: 1 },
+              { lessonId: lessons[0].id, type: "SELECT", question: "'CQ' is used to:", order: 2 },
+              { lessonId: lessons[1].id, type: "SELECT", question: "Which is a good practice message?", order: 3 },
+            ]).returning();
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[0].id, correct: true, text: "... --- ..." },
+              { challengeId: challenges[0].id, correct: false, text: "--- ... ---" },
+              { challengeId: challenges[0].id, correct: false, text: ".-. ... .-." },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[1].id, correct: true, text: "Call any station" },
+              { challengeId: challenges[1].id, correct: false, text: "Cease transmission" },
+              { challengeId: challenges[1].id, correct: false, text: "Confirm quality" },
+            ]);
+            await db.insert(schema.challengeOptions).values([
+              { challengeId: challenges[2].id, correct: true, text: "TEST TEST" },
+              { challengeId: challenges[2].id, correct: false, text: "ZQX JKV" },
+              { challengeId: challenges[2].id, correct: false, text: "No spacing at all" },
             ]);
           }
         }

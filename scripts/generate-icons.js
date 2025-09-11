@@ -10,8 +10,6 @@ console.log('');
 console.log('Files to replace:');
 console.log('1. app/favicon.ico - 16x16, 32x32, 48x48 sizes');
 console.log('2. app/apple-icon.png - 180x180 size');
-console.log('3. app/icon1.png - 32x32 size');
-console.log('4. app/icon2.png - 16x16 size');
 console.log('');
 console.log('Steps to generate new icons:');
 console.log('1. Open public/mascotnew.svg in an image editor or online SVG to ICO/PNG converter');
@@ -37,9 +35,9 @@ if (fs.existsSync(svgPath)) {
   console.log('❌ mascotnew.svg not found!');
 }
 
-// List current icon files
+// List current icon files in app/
 const appDir = path.join(__dirname, '..', 'app');
-const iconFiles = ['favicon.ico', 'apple-icon.png', 'icon1.png', 'icon2.png'];
+const iconFiles = ['favicon.ico', 'apple-icon.png'];
 
 console.log('');
 console.log('Current icon files status:');
