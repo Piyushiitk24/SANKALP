@@ -46,9 +46,9 @@ export async function POST(req: NextRequest) {
   try {
     // Handle different webhook events
     if (event.type === "checkout.session.completed") {
-      const subscription = await stripe.subscriptions.retrieve(
+      const subscription = (await stripe.subscriptions.retrieve(
         session.subscription as string
-      );
+      )) as Stripe.Subscription;
 
       if (!session?.metadata?.userId) {
         securityLogger.logError(
@@ -67,12 +67,13 @@ export async function POST(req: NextRequest) {
         return new NextResponse("Invalid subscription data", { status: 400 });
       }
 
+  const currentPeriodEndSec = (subscription as any).current_period_end as number | undefined;
       await db.insert(userSubscription).values({
         userId: session.metadata.userId,
         stripeSubscriptionId: subscription.id,
         stripeCustomerId: subscription.customer as string,
         stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000), // in ms
+        stripeCurrentPeriodEnd: new Date((currentPeriodEndSec ?? 0) * 1000), // in ms
       });
 
       securityLogger.logAdminAction(
@@ -82,17 +83,16 @@ export async function POST(req: NextRequest) {
       );
 
     } else if (event.type === "invoice.payment_succeeded") {
-      const subscription = await stripe.subscriptions.retrieve(
+      const subscription = (await stripe.subscriptions.retrieve(
         session.subscription as string
-      );
+      )) as Stripe.Subscription;
 
+  const currentPeriodEndSec2 = (subscription as any).current_period_end as number | undefined;
       await db
         .update(userSubscription)
         .set({
           stripePriceId: subscription.items.data[0].price.id,
-          stripeCurrentPeriodEnd: new Date(
-            subscription.current_period_end * 1000 // in ms
-          ),
+          stripeCurrentPeriodEnd: new Date((currentPeriodEndSec2 ?? 0) * 1000), // in ms
         })
         .where(eq(userSubscription.stripeSubscriptionId, subscription.id));
 

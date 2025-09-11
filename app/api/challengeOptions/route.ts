@@ -67,14 +67,14 @@ export const POST = async (req: NextRequest) => {
     if (!validation.success) {
       securityLogger.logValidationError(
         body,
-        validation.error.errors.map(err => `${err.path.join(".")}: ${err.message}`),
+        validation.error.issues.map(err => `${err.path.join(".")}: ${err.message}`),
         "challenge-options-create"
       );
       
       return NextResponse.json(
         { 
           error: "Invalid input", 
-          details: validation.error.errors.map(err => `${err.path.join(".")}: ${err.message}`)
+          details: validation.error.issues.map(err => `${err.path.join(".")}: ${err.message}`)
         }, 
         { status: 400 }
       );

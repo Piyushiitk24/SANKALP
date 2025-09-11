@@ -9,9 +9,7 @@ export const challengeSchema = z.object({
       (val) => !val.includes("<script>") && !val.includes("javascript:"),
       "Question contains invalid content"
     ),
-  type: z.enum(["SELECT", "ASSIST"], {
-    errorMap: () => ({ message: "Type must be SELECT or ASSIST" }),
-  }),
+  type: z.enum(["SELECT", "ASSIST"], { message: "Type must be SELECT or ASSIST" }),
   order: z.number()
     .int("Order must be an integer")
     .min(0, "Order must be non-negative"),
@@ -156,14 +154,14 @@ export const urlSchema = z.string()
   );
 
 // Validation middleware for API routes
-export const validateRequest = <T>(schema: z.ZodSchema<T>) => {
+export const validateRequest = <T>(schema: z.ZodType<T>) => {
   return (data: unknown): { success: true; data: T } | { success: false; error: string } => {
     try {
       const validatedData = schema.parse(data);
       return { success: true, data: validatedData };
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errorMessage = error.errors
+        const errorMessage = error.issues
           .map(err => `${err.path.join(".")}: ${err.message}`)
           .join(", ");
         return { success: false, error: errorMessage };

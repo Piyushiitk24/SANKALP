@@ -17,9 +17,7 @@ const challengeSchema = z.object({
       (val) => !val.includes("<script>") && !val.includes("javascript:"),
       "Question contains invalid content"
     ),
-  type: z.enum(["SELECT", "ASSIST"], {
-    errorMap: () => ({ message: "Type must be SELECT or ASSIST" }),
-  }),
+  type: z.enum(["SELECT", "ASSIST"], { message: "Type must be SELECT or ASSIST" }),
   order: z.number()
     .int("Order must be an integer")
     .positive("Order must be positive")
@@ -75,7 +73,7 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json(
         { 
           error: "Invalid input", 
-          details: validation.error.errors.map(err => `${err.path.join(".")}: ${err.message}`)
+          details: validation.error.issues.map(err => `${err.path.join(".")}: ${err.message}`)
         }, 
         { status: 400 }
       );
