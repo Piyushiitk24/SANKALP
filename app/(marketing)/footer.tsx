@@ -82,6 +82,37 @@ export const Footer = () => {
           <span className="truncate hidden sm:inline">Domains of Learning</span>
           <span className="truncate sm:hidden">Domains</span>
         </Button>
+
+        <Button
+          size="sm"
+          variant="ghost"
+          className="flex-1 cursor-default flex justify-center items-center gap-1 text-xs lg:text-sm min-w-0"
+        >
+          <Image
+            src="/semaphore.svg"
+            alt="Semaphore"
+            height={20}
+            width={25}
+            className="h-auto rounded-md flex-shrink-0"
+          />
+          <span className="truncate">Semaphore</span>
+        </Button>
+
+        <Button
+          size="sm"
+          variant="ghost"
+          className="flex-1 cursor-default flex justify-center items-center gap-1 text-xs lg:text-sm min-w-0"
+        >
+          <Image
+            src="/flashing.svg"
+            alt="Flashing (Morse Code)"
+            height={20}
+            width={25}
+            className="h-auto rounded-md flex-shrink-0"
+          />
+          <span className="truncate hidden sm:inline">Flashing (Morse Code)</span>
+          <span className="truncate sm:hidden">Flashing</span>
+        </Button>
       </div>
     </div>
   );

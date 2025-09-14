@@ -58,7 +58,7 @@ const nextConfig = {
                 default-src 'self';
                 script-src 'self' 'unsafe-eval' 'unsafe-inline' *.clerk.accounts.dev *.clerk.dev *.stripe.com;
                 style-src 'self' 'unsafe-inline' *.googleapis.com;
-                img-src 'self' data: *.clerk.accounts.dev *.clerk.dev *.stripe.com;
+                img-src 'self' data: img.clerk.com images.clerk.dev *.clerk.accounts.dev *.clerk.dev *.stripe.com;
                 font-src 'self' *.googleapis.com *.gstatic.com;
                 connect-src 'self' *.clerk.accounts.dev *.clerk.dev *.stripe.com api.stripe.com http://localhost:3000 http://127.0.0.1:3000 http://192.168.1.0/16 http://192.168.1.109:3000;
                 frame-src 'self' *.stripe.com;
