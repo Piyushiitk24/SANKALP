@@ -108,7 +108,7 @@ export const LessonPageClient = ({
       // No user progress, redirect to courses
       router.push("/learn");
     }
-  }, [user, guestUser, userLoaded, guestLoaded, router, lessonId]);
+  }, [user, guestUser, userLoaded, guestLoaded, router, lessonId, initialLesson, initialUserProgress]);
 
   // Loading state
   if (!userLoaded || !guestLoaded) {

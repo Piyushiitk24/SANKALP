@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -80,7 +80,7 @@ export const LearnPageClient = ({
   const [isLoadingCourseData, setIsLoadingCourseData] = useState(false);
 
   // Function to fetch guest course data
-  const fetchGuestCourseData = async (courseId: number, activeCourse: any) => {
+  const fetchGuestCourseData = useCallback(async (courseId: number, activeCourse: any) => {
     console.log("Starting to fetch guest course data for courseId:", courseId);
     setIsLoadingCourseData(true);
     
@@ -144,7 +144,7 @@ export const LearnPageClient = ({
     } finally {
       setIsLoadingCourseData(false);
     }
-  };
+  }, [guestUser, router]);
 
   useEffect(() => {
     console.log("Learn page useEffect triggered:", { 
@@ -200,7 +200,17 @@ export const LearnPageClient = ({
       console.log("No guest user or no active course, redirecting to courses");
       router.push("/courses");
     }
-  }, [user, guestUser, userLoaded, guestLoaded, router, courses, initialUserProgress, initialCourseProgress]);
+  }, [
+    user,
+    guestUser,
+    userLoaded,
+    guestLoaded,
+    router,
+    courses,
+    initialUserProgress,
+    initialCourseProgress,
+    fetchGuestCourseData,
+  ]);
 
   // Loading state
   if (!userLoaded || !guestLoaded || isLoadingCourseData) {
