@@ -17,6 +17,7 @@ import { useHeartsModal } from "@/store/use-hearts-modal";
 import { usePracticeModal } from "@/store/use-practice-modal";
 import { useGuestUser } from "@/hooks/use-guest-user";
 import { updateGuestChallengeProgress, reduceGuestHearts } from "@/lib/guest-progress";
+import { sanitizeChallengePrompt } from "@/lib/challenge-copy";
 
 import { Challenge } from "./challenge";
 import { Footer } from "./footer";
@@ -274,7 +275,7 @@ export const QuizClient = ({
   const title =
     challenge.type === "ASSIST"
       ? "Select the correct meaning"
-      : challenge.question;
+      : sanitizeChallengePrompt(challenge.question);
 
   return (
     <>

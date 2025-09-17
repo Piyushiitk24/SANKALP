@@ -12,6 +12,7 @@ import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { reduceHearts } from "@/actions/user-progress";
 import { MAX_HEARTS } from "@/constants";
 import { challengeOptions, challenges, userSubscription } from "@/db/schema";
+import { sanitizeChallengePrompt } from "@/lib/challenge-copy";
 import { useHeartsModal } from "@/store/use-hearts-modal";
 import { usePracticeModal } from "@/store/use-practice-modal";
 
@@ -218,7 +219,7 @@ export const Quiz = ({
   const title =
     challenge.type === "ASSIST"
       ? "Select the correct meaning"
-      : challenge.question;
+      : sanitizeChallengePrompt(challenge.question);
 
   return (
     <>

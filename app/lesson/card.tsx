@@ -62,6 +62,7 @@ export const Card = ({
   return (
     <div
       onClick={handleClick}
+      aria-label={derivedPose ? text : undefined}
       className={cn(
         "group relative overflow-hidden rounded-2xl border-2 cursor-pointer transition-all duration-300 ease-out",
         "bg-card shadow-lg hover:shadow-xl hover:-translate-y-1",
@@ -115,13 +116,16 @@ export const Card = ({
         )}>
           {/* Main text */}
           <div className="flex-1">
-            <p className={cn(
-              "text-sm lg:text-base font-medium leading-relaxed transition-colors duration-200",
-              "text-foreground",
-              selected && !status && "text-blue-700 dark:text-blue-400",
-              selected && status === "correct" && "text-emerald-700 dark:text-emerald-400",
-              selected && status === "wrong" && "text-red-700 dark:text-red-400"
-            )}>
+            <p
+              className={cn(
+                "text-sm lg:text-base font-medium leading-relaxed transition-colors duration-200",
+                "text-foreground",
+                selected && !status && "text-blue-700 dark:text-blue-400",
+                selected && status === "correct" && "text-emerald-700 dark:text-emerald-400",
+                selected && status === "wrong" && "text-red-700 dark:text-red-400",
+                derivedPose && "sr-only"
+              )}
+            >
               {text}
             </p>
           </div>
