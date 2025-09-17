@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import Image from "next/image";
 import { useAudio, useKey } from "react-use";
@@ -6,6 +6,8 @@ import { CheckCircle, XCircle, Volume2 } from "lucide-react";
 
 import { challenges } from "@/db/schema";
 import { cn } from "@/lib/utils";
+import { deriveSemaphorePose } from "@/lib/semaphore-visuals";
+import { SemaphorePoseFigure } from "@/components/semaphore/semaphore-pose-figure";
 
 type CardProps = {
   id: number;
@@ -36,6 +38,15 @@ export const Card = ({
   const [audio, _, controls] = useAudio(
     audioSrc ? { src: audioSrc } : { src: undefined as unknown as string }
   );
+
+  const derivedPose = useMemo(() => deriveSemaphorePose(text), [text]);
+
+  const poseVariant = useMemo(() => {
+    if (selected && status === "correct") return "correct" as const;
+    if (selected && status === "wrong") return "wrong" as const;
+    if (selected) return "active" as const;
+    return "default" as const;
+  }, [selected, status]);
 
   const handleClick = useCallback(() => {
     if (disabled) return;
@@ -79,19 +90,23 @@ export const Card = ({
 
       {/* Content container */}
       <div className="relative p-4 lg:p-6">
-        {/* Image section */}
-        {imageSrc && (
+        {/* Visual section */}
+        {imageSrc ? (
           <div className="relative mb-4 mx-auto aspect-square max-h-[80px] w-fit lg:max-h-[120px]">
             <div className="relative overflow-hidden rounded-xl bg-muted p-2">
-              <Image 
-                src={imageSrc} 
-                fill 
+              <Image
+                src={imageSrc}
+                fill
                 alt={text}
                 className="object-contain"
               />
             </div>
           </div>
-        )}
+        ) : derivedPose ? (
+          <div className="mx-auto mb-4 h-[96px] w-[96px] lg:h-[112px] lg:w-[112px]">
+            <SemaphorePoseFigure pose={derivedPose} variant={poseVariant} />
+          </div>
+        ) : null}
 
         {/* Text and controls section */}
         <div className={cn(
