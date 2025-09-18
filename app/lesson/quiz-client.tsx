@@ -281,6 +281,7 @@ export const QuizClient = ({
     <>
       {incorrectAudio}
       {correctAudio}
+      {finishAudio}
       <Header
         hearts={hearts}
         percentage={percentage}

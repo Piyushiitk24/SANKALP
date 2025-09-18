@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { deriveSemaphorePose } from "@/lib/semaphore-visuals";
 import { SemaphorePoseFigure } from "@/components/semaphore/semaphore-pose-figure";
 
+const DEFAULT_OPTION_AUDIO = "/audio/option-select.wav";
+
 type CardProps = {
   id: number;
   text: string;
@@ -33,10 +35,14 @@ export const Card = ({
   disabled,
   type,
 }: CardProps) => {
-  // Only initialize audio when a valid src is provided to avoid empty src warnings
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [audio, _, controls] = useAudio(
-    audioSrc ? { src: audioSrc } : { src: undefined as unknown as string }
+  const resolvedAudioSrc = audioSrc ?? DEFAULT_OPTION_AUDIO;
+  const hasAudio = Boolean(resolvedAudioSrc);
+
+  const [audioElement, , controls] = useAudio(
+    useMemo(() => ({
+      src: resolvedAudioSrc,
+      preload: "none" as const,
+    }), [resolvedAudioSrc])
   );
 
   const derivedPose = useMemo(() => deriveSemaphorePose(text), [text]);
@@ -51,11 +57,12 @@ export const Card = ({
   const handleClick = useCallback(() => {
     if (disabled) return;
 
-    if (audioSrc) {
+    if (hasAudio) {
+      controls.seek(0);
       void controls.play();
     }
     onClick();
-  }, [disabled, onClick, controls, audioSrc]);
+  }, [disabled, onClick, controls, hasAudio]);
 
   useKey(shortcut, handleClick, {}, [handleClick]);
 
@@ -78,7 +85,11 @@ export const Card = ({
         type === "SELECT" && "min-h-[100px]"
       )}
     >
-  {audioSrc && audio}
+      {hasAudio && (
+        <div aria-hidden className="hidden">
+          {audioElement}
+        </div>
+      )}
       
       {/* Decorative gradient background */}
       <div className={cn(
@@ -133,7 +144,7 @@ export const Card = ({
           {/* Right side controls */}
           <div className="flex items-center gap-2">
             {/* Audio button */}
-            {audioSrc && (
+            {hasAudio && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
